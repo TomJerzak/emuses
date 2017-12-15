@@ -51,6 +51,11 @@ namespace Emuses
             return _sessionId;
         }
 
+        public int GetMinutes()
+        {
+            return _minutes;
+        }
+
         public DateTime GetExpiredDate()
         {
             return _expireDateTime;

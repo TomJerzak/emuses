@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Emuses.Example.Core;
+﻿using Emuses.Example.Core;
+using Emuses.Example.Core.Repositories;
+using Emuses.Example.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +28,9 @@ namespace Emuses.Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
+            services.AddScoped<ISession, Session>();
+            services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
+
             services.AddMvc();
         }
 

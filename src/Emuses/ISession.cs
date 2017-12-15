@@ -10,6 +10,8 @@ namespace Emuses
 
         string GetVersion();
 
+        Session Open(int minutes);
+
         Session Update();
 
         Session Close();

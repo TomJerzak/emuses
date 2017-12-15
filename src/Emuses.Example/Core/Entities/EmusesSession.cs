@@ -13,5 +13,17 @@ namespace Emuses.Example.Core.Entities
         public DateTime ExpireDateTime { get; set; }
 
         public string Version { get; set; }
+
+        public EmusesSession()
+        {
+        }
+
+        public EmusesSession(Session session)
+        {
+            SessionId = session.GetSessionId();
+            Minutes = session.GetMinutes();
+            ExpireDateTime = session.GetExpiredDate();
+            Version = session.GetVersion();
+        }
     }
 }

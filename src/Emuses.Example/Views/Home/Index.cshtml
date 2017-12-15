@@ -5,18 +5,27 @@
 <div class="row">
     <div class="col-md-3">
         <h2>Open session</h2>
-        <button>Open</button>
+        <form asp-controller="Home" asp-action="Open">
+            <input type="submit" value="Open" />
+        </form>        
     </div>
     <div class="col-md-3">
         <h2>Update session</h2>
-        <button>Update</button>
+        <button disabled="disabled">Update</button>
     </div>
     <div class="col-md-3">
         <h2>Close session</h2>
-        <button>Close</button>
+        <button disabled="disabled">Close</button>
     </div>
     <div class="col-md-3">
         <h2>Is valid session?</h2>
-        <button>Check</button>
+        <button disabled="disabled">Check</button>
     </div>
+</div>
+<div class="row">
+    @if (ViewData["session"] != null)
+    {
+        <br/>
+        <span>@ViewData["session"].ToString()</span>
+    }
 </div>

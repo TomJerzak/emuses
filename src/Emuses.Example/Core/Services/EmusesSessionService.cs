@@ -1,33 +1,62 @@
 ﻿using System.Linq;
+using Emuses.Example.Core.Entities;
 using Emuses.Example.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Emuses.Example.Core.Services
 {
-    public class EmusesSessionService : ICrudRepository<Session>
+    public class EmusesSessionService : IEmusesSessionRepository
     {
-        public Session Create(Session item)
-        {
-            throw new System.NotImplementedException();
-        }
+        private readonly ExampleContext _dbContext;
 
-        public Session Delete(int id)
+        public EmusesSessionService(ExampleContext exampleContext)
         {
-            throw new System.NotImplementedException();
+            _dbContext = exampleContext;
         }
 
         public IQueryable GetAll()
         {
-            throw new System.NotImplementedException();
+            return _dbContext.EmusesSessions.AsNoTracking();
         }
 
-        public Session GetById(int id)
+        public EmusesSession GetById(long id)
         {
-            throw new System.NotImplementedException();
+            return _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.EmusesSessionId == id);
         }
 
-        public Session Update(Session item)
+        public EmusesSession GetBySessionId(string sessionId)
         {
-            throw new System.NotImplementedException();
+            return _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.SessionId.ToLower().Equals(sessionId.ToLower()));
+        }
+
+        public EmusesSession Create(EmusesSession item)
+        {
+            _dbContext.EmusesSessions.Add(item);
+            _dbContext.SaveChangesAsync();
+
+            return item;
+        }
+
+        public EmusesSession Update(EmusesSession item)
+        {
+            var entity = GetById(item.EmusesSessionId);
+            entity.ExpireDateTime = item.ExpireDateTime;
+            entity.Version = item.Version;
+
+            _dbContext.Update(entity);
+            _dbContext.SaveChangesAsync();
+
+            return item;
+        }
+
+        public EmusesSession Delete(long id)
+        {
+            var entity = GetById(id);
+
+            _dbContext.Remove(entity);
+            _dbContext.SaveChangesAsync();
+
+            return entity;
         }
     }
 }
