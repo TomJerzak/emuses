@@ -12,6 +12,8 @@ namespace Emuses
 
         Session Update();
 
-        Session Close();        
+        Session Close();
+
+        bool IsValid();
     }
 }

@@ -33,8 +33,17 @@ namespace Emuses.Tests
             ISession session = new Session().Open(1);
 
             var sessionClosed = session.Close();
+
             sessionClosed.GetExpiredDate().Should().Be(DateTime.Now);
             sessionClosed.GetVersion().Should().BeNullOrEmpty();            
+        }
+
+        [Fact]
+        public void is_valid_session()
+        {
+            ISession session = new Session().Open(1);
+
+            session.IsValid().Should().BeTrue();
         }
     }
 }

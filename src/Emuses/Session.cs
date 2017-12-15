@@ -41,6 +41,11 @@ namespace Emuses
             return this;
         }
 
+        public bool IsValid()
+        {
+            return GetExpiredDate() > DateTime.Now;
+        }
+
         public string GetSessionId()
         {
             return _sessionId;
