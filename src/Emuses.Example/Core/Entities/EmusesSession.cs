@@ -19,7 +19,7 @@ namespace Emuses.Example.Core.Entities
         }
 
         public EmusesSession(Session session)
-        {
+        {            
             SessionId = session.GetSessionId();
             Minutes = session.GetMinutes();
             ExpireDateTime = session.GetExpiredDate();

@@ -26,16 +26,44 @@ namespace Emuses.Example.Controllers
         [HttpPost]
         public IActionResult Open()
         {
-            var emusesSession = _emusesSessionRepository.Create(new EmusesSession(_session.Open(30)));
+            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(30)));
             
-            Response.Cookies.Append("Emuses.Example.SessionId", emusesSession.SessionId, new CookieOptions
+            Response.Cookies.Append("Emuses.Example.SessionId", entity.SessionId, new CookieOptions
             {
-                Expires = emusesSession.ExpireDateTime,
+                Expires = entity.ExpireDateTime,
                 HttpOnly = true /*,
                 Secure = true*/
             });
 
-            ViewData["session"] = $"Created session. Id: {emusesSession.SessionId}, expired date: {emusesSession.ExpireDateTime}";
+            ViewData["session"] = $"Created session. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";
+            return View("Index");
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult Update()
+        {
+            Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);
+
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                try
+                {
+                    var entity = _emusesSessionRepository.GetBySessionId(sessionId);
+
+                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes);
+                    session.Update();
+
+                    entity = _emusesSessionRepository.Update(new EmusesSession(session));
+                    ViewData["session"] = $"Updated session. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";
+                }
+                catch (SessionNotFoundException)
+                {
+                    ViewData["session"] = $"Session not found: {sessionId}";
+                    return View("Index");
+                }
+            }
+
             return View("Index");
         }
     }

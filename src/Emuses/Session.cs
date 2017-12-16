@@ -4,8 +4,8 @@ namespace Emuses
 {
     public class Session : ISession
     {
-        private readonly string _sessionId;
-        private readonly int _minutes;
+        private string _sessionId;
+        private int _minutes;
         private DateTime _expireDateTime;
         private string _version;
 
@@ -30,6 +30,16 @@ namespace Emuses
         {
             _expireDateTime = DateTime.Now.AddMinutes(_minutes);
             _version = GenerateVersion();
+            return this;
+        }
+
+        public Session Restore(string sessionId, string version, DateTime expiredDateTime, int minutes)
+        {
+            _sessionId = sessionId;
+            _version = version;
+            _expireDateTime = expiredDateTime;
+            _minutes = minutes;
+
             return this;
         }
 

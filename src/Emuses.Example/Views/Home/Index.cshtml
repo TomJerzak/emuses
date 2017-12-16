@@ -3,15 +3,19 @@
 }
 
 <div class="row">
+    
     <div class="col-md-3">
         <h2>Open session</h2>
-        <form asp-controller="Home" asp-action="Open">
-            <input type="submit" value="Open" />
-        </form>        
+        <form asp-controller="Home" asp-action="Open" method="post">
+            <input type="submit" value="Open"/>
+        </form>
     </div>
+
     <div class="col-md-3">
         <h2>Update session</h2>
-        <button disabled="disabled">Update</button>
+        <form asp-controller="Home" asp-action="Update" method="post">
+            <input type="submit" value="Update"/>
+        </form>
     </div>
     <div class="col-md-3">
         <h2>Close session</h2>

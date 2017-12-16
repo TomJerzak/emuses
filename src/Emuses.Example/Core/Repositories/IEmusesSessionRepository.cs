@@ -9,6 +9,8 @@ namespace Emuses.Example.Core.Repositories
 
         EmusesSession GetById(long id);
 
+        EmusesSession GetBySessionId(string sessionId);
+
         EmusesSession Create(EmusesSession item);
 
         EmusesSession Update(EmusesSession item);

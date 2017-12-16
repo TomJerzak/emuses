@@ -17,5 +17,7 @@ namespace Emuses
         Session Close();
 
         bool IsValid();
+
+        Session Restore(string sessionId, string version, DateTime expiredDateTime, int minutes);
     }
 }

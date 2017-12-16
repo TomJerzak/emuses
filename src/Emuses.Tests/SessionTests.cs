@@ -34,7 +34,7 @@ namespace Emuses.Tests
 
             var sessionClosed = session.Close();
 
-            sessionClosed.GetExpiredDate().Should().Be(DateTime.Now);
+            sessionClosed.GetExpiredDate().Should().BeBefore(DateTime.Now.AddMinutes(1));
             sessionClosed.GetVersion().Should().BeNullOrEmpty();            
         }
 
@@ -44,6 +44,21 @@ namespace Emuses.Tests
             ISession session = new Session().Open(1);
 
             session.IsValid().Should().BeTrue();
+        }
+
+        [Fact]
+        public void restore_session()
+        {
+            ISession session = new Session();
+            const string sessionId = "sessionId";
+            const string version = "version";
+            var now = DateTime.Now;
+            const int minutes = 30;
+
+            session.Restore(sessionId, version, now, minutes).GetSessionId().Should().Be("sessionId");
+            session.Restore(sessionId, version, now, minutes).GetVersion().Should().Be("version");
+            session.Restore(sessionId, version, now, minutes).GetExpiredDate().Should().Be(now);
+            session.Restore(sessionId, version, now, minutes).GetMinutes().Should().Be(30);            
         }
     }
 }

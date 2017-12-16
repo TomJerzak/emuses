@@ -21,12 +21,20 @@ namespace Emuses.Example.Core.Services
 
         public EmusesSession GetById(long id)
         {
-            return _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.EmusesSessionId == id);
+            var emusesSession = _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.EmusesSessionId == id);
+            if (emusesSession == null)
+                throw new SessionNotFoundException();
+
+            return emusesSession;
         }
 
         public EmusesSession GetBySessionId(string sessionId)
         {
-            return _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.SessionId.ToLower().Equals(sessionId.ToLower()));
+            var emusesSession = _dbContext.EmusesSessions.AsNoTracking().FirstOrDefault(p => p.SessionId.ToLower().Equals(sessionId.ToLower()));
+            if (emusesSession == null)
+                throw new SessionNotFoundException();
+
+            return emusesSession;
         }
 
         public EmusesSession Create(EmusesSession item)
@@ -39,7 +47,7 @@ namespace Emuses.Example.Core.Services
 
         public EmusesSession Update(EmusesSession item)
         {
-            var entity = GetById(item.EmusesSessionId);
+            var entity = GetBySessionId(item.SessionId);
             entity.ExpireDateTime = item.ExpireDateTime;
             entity.Version = item.Version;
 
