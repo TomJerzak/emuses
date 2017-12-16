@@ -26,11 +26,11 @@ namespace Emuses.Example.Controllers
         [HttpPost]
         public IActionResult Open()
         {
-            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(30)));
-            
+            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(1)));
+
             Response.Cookies.Append("Emuses.Example.SessionId", entity.SessionId, new CookieOptions
             {
-                Expires = entity.ExpireDateTime,
+                Expires = DateTimeOffset.Now.AddDays(1), //Expires = entity.ExpireDateTime,
                 HttpOnly = true /*,
                 Secure = true*/
             });
@@ -68,14 +68,14 @@ namespace Emuses.Example.Controllers
 
         public IActionResult Close()
         {
-            Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);            
+            Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);
             if (!string.IsNullOrEmpty(sessionId))
             {
                 try
                 {
                     var entity = _emusesSessionRepository.GetBySessionId(sessionId);
                     _emusesSessionRepository.Delete(entity.EmusesSessionId);
-                    
+
                     ViewData["session"] = $"Deleted session. Id: {entity.SessionId}";
                 }
                 catch (SessionNotFoundException)
@@ -86,6 +86,33 @@ namespace Emuses.Example.Controllers
             }
 
             Response.Cookies.Delete("Emuses.Example.SessionId");
+            return View("Index");
+        }
+
+        public IActionResult IsValid()
+        {
+            Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                try
+                {
+                    var entity = _emusesSessionRepository.GetBySessionId(sessionId);
+
+                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes);
+                    if (session.IsValid())
+                        ViewData["session"] = $"Session is valid. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";
+                    else
+                        ViewData["session"] = $"Session is invalid. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";
+                }
+                catch (SessionNotFoundException)
+                {
+                    ViewData["session"] = $"Session not found: {sessionId}";
+                    return View("Index");
+                }
+            }
+            else
+                ViewData["session"] = "Session is invalid.";
+
             return View("Index");
         }
     }

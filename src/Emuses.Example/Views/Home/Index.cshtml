@@ -25,7 +25,9 @@
     </div>
     <div class="col-md-3">
         <h2>Is valid session?</h2>
-        <button disabled="disabled">Check</button>
+        <form asp-controller="Home" asp-action="IsValid" method="post">
+            <input type="submit" value="Check" />
+        </form>
     </div>
 </div>
 <div class="row">
