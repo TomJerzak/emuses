@@ -44,7 +44,6 @@ namespace Emuses.Example.Controllers
         public IActionResult Update()
         {
             Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);
-
             if (!string.IsNullOrEmpty(sessionId))
             {
                 try
@@ -64,6 +63,29 @@ namespace Emuses.Example.Controllers
                 }
             }
 
+            return View("Index");
+        }
+
+        public IActionResult Close()
+        {
+            Request.Cookies.TryGetValue("Emuses.Example.SessionId", out string sessionId);            
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                try
+                {
+                    var entity = _emusesSessionRepository.GetBySessionId(sessionId);
+                    _emusesSessionRepository.Delete(entity.EmusesSessionId);
+                    
+                    ViewData["session"] = $"Deleted session. Id: {entity.SessionId}";
+                }
+                catch (SessionNotFoundException)
+                {
+                    ViewData["session"] = $"Session not found: {sessionId}";
+                    return View("Index");
+                }
+            }
+
+            Response.Cookies.Delete("Emuses.Example.SessionId");
             return View("Index");
         }
     }

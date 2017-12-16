@@ -19,7 +19,9 @@
     </div>
     <div class="col-md-3">
         <h2>Close session</h2>
-        <button disabled="disabled">Close</button>
+        <form asp-controller="Home" asp-action="Close" method="post">
+            <input type="submit" value="Close" />
+        </form>
     </div>
     <div class="col-md-3">
         <h2>Is valid session?</h2>
