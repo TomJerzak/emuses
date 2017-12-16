@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Emuses
+namespace Emuses.Exceptions
 {
     public class SessionExpiredException : Exception
     {

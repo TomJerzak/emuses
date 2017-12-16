@@ -1,4 +1,5 @@
 ﻿using System;
+using Emuses.Exceptions;
 
 namespace Emuses
 {

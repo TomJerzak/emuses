@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Emuses.Example.Core.Entities;
 using Emuses.Example.Core.Repositories;
+using Emuses.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Emuses.Example.Core.Services
