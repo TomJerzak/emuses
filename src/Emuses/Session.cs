@@ -28,6 +28,9 @@ namespace Emuses
 
         public Session Update()
         {
+            if (GetExpiredDate() < DateTime.Now)
+                throw new SessionExpiredException();
+
             _expireDateTime = DateTime.Now.AddMinutes(_minutes);
             _version = GenerateVersion();
             return this;

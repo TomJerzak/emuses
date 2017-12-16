@@ -28,6 +28,16 @@ namespace Emuses.Tests
         }
 
         [Fact]
+        public void throw_exception_on__update_if_session_expired()
+        {
+            ISession session = new Session().Open(0);
+
+            var exception = Record.Exception(() => session.Update());
+            exception.Should().NotBeNull();
+            exception.Should().BeAssignableTo<SessionExpiredException>();
+        }
+
+        [Fact]
         public void close_session()
         {
             ISession session = new Session().Open(1);

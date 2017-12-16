@@ -59,7 +59,10 @@ namespace Emuses.Example.Controllers
                 catch (SessionNotFoundException)
                 {
                     ViewData["session"] = $"Session not found: {sessionId}";
-                    return View("Index");
+                }
+                catch (SessionExpiredException)
+                {
+                    ViewData["session"] = $"Session expired: {sessionId}";
                 }
             }
 

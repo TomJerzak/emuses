@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
+    <PackageProjectUrl>https://github.com/teja-1010100/emuses</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/teja-1010100/emuses/blob/master/LICENSE</PackageLicenseUrl>
+    <Authors>Tomasz Jerzak</Authors>
+    <PackageTags>.net core, session</PackageTags>
+    <Company />
   </PropertyGroup>
 </Project>
