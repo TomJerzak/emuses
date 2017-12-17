@@ -10,12 +10,14 @@ namespace Emuses.Example.Controllers
     public class HomeController : Controller
     {
         private readonly ISession _session;
+        private readonly IStorage _storage;
         private readonly IEmusesSessionRepository _emusesSessionRepository;
 
-        public HomeController(ISession session, IEmusesSessionRepository emusesSessionRepository)
+        public HomeController(ISession session, IEmusesSessionRepository emusesSessionRepository, IStorage storage)
         {
             _session = session;
             _emusesSessionRepository = emusesSessionRepository;
+            _storage = storage;
         }
 
         public IActionResult Index()
@@ -27,7 +29,7 @@ namespace Emuses.Example.Controllers
         [HttpPost]
         public IActionResult Open()
         {
-            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(1)));
+            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(1, _storage)));
 
             Response.Cookies.Append("Emuses.Example.SessionId", entity.SessionId, new CookieOptions
             {
@@ -51,7 +53,7 @@ namespace Emuses.Example.Controllers
                 {
                     var entity = _emusesSessionRepository.GetBySessionId(sessionId);
 
-                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes);
+                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes, _storage);
                     session.Update();
 
                     entity = _emusesSessionRepository.Update(new EmusesSession(session));
@@ -102,7 +104,7 @@ namespace Emuses.Example.Controllers
                 {
                     var entity = _emusesSessionRepository.GetBySessionId(sessionId);
 
-                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes);
+                    var session = _session.Restore(entity.SessionId, entity.Version, entity.ExpireDateTime, entity.Minutes, _storage);
                     if (session.IsValid())
                         ViewData["session"] = $"Session is valid. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";
                     else

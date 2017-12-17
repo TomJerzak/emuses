@@ -29,6 +29,7 @@ namespace Emuses.Example
         {
             services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
             services.AddScoped<ISession, Session>();
+            services.AddScoped<IStorage, FileStorage>();
             services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
             
             services.AddMvc();

@@ -10,7 +10,7 @@ namespace Emuses
 
         string GetVersion();
 
-        Session Open(int minutes);
+        Session Open(int minutes, IStorage storage);
 
         Session Update();
 
@@ -18,6 +18,6 @@ namespace Emuses
 
         bool IsValid();
 
-        Session Restore(string sessionId, string version, DateTime expiredDateTime, int minutes);
+        Session Restore(string sessionId, string version, DateTime expiredDateTime, int minutes, IStorage storage);
     }
 }

@@ -1,16 +1,27 @@
 using System;
 using Emuses.Exceptions;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Emuses.Tests
 {
-    public class SessionTests
+    public class SessionTests/* : IDisposable*/
     {
+        private readonly Mock<IStorage> _storage;
+
+        public SessionTests()
+        {
+            _storage = new Mock<IStorage>();
+        }
+
+        /*public void Dispose() { }*/
+
         [Fact]
         public void open_new_session()
         {
-            ISession session = new Session().Open(30);
+            ISession session = new Session().Open(30, _storage.Object);
+            //_storage.Setup(x => x.Create(session)).Returns(session);
 
             session.GetSessionId().Should().NotBeNullOrEmpty();
             session.GetExpiredDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
@@ -19,7 +30,7 @@ namespace Emuses.Tests
         [Fact]
         public void update_session()
         {
-            ISession session = new Session().Open(1);
+            ISession session = new Session().Open(1, _storage.Object);
             var sessionVersion = session.GetVersion();
 
             var sessionUpdated = session.Update();
@@ -31,7 +42,7 @@ namespace Emuses.Tests
         [Fact]
         public void throw_exception_on__update_if_session_expired()
         {
-            ISession session = new Session().Open(0);
+            ISession session = new Session().Open(-1, _storage.Object);
 
             var exception = Record.Exception(() => session.Update());
             exception.Should().NotBeNull();
@@ -41,7 +52,7 @@ namespace Emuses.Tests
         [Fact]
         public void close_session()
         {
-            ISession session = new Session().Open(1);
+            ISession session = new Session().Open(1, _storage.Object);
 
             var sessionClosed = session.Close();
 
@@ -52,7 +63,7 @@ namespace Emuses.Tests
         [Fact]
         public void is_valid_session()
         {
-            ISession session = new Session().Open(1);
+            ISession session = new Session().Open(1, _storage.Object);
 
             session.IsValid().Should().BeTrue();
         }
@@ -66,10 +77,10 @@ namespace Emuses.Tests
             var now = DateTime.Now;
             const int minutes = 30;
 
-            session.Restore(sessionId, version, now, minutes).GetSessionId().Should().Be("sessionId");
-            session.Restore(sessionId, version, now, minutes).GetVersion().Should().Be("version");
-            session.Restore(sessionId, version, now, minutes).GetExpiredDate().Should().Be(now);
-            session.Restore(sessionId, version, now, minutes).GetMinutes().Should().Be(30);            
-        }
+            session.Restore(sessionId, version, now, minutes, _storage.Object).GetSessionId().Should().Be("sessionId");
+            session.Restore(sessionId, version, now, minutes, _storage.Object).GetVersion().Should().Be("version");
+            session.Restore(sessionId, version, now, minutes, _storage.Object).GetExpiredDate().Should().Be(now);
+            session.Restore(sessionId, version, now, minutes, _storage.Object).GetMinutes().Should().Be(30);            
+        }        
     }
 }
