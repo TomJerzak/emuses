@@ -32,8 +32,8 @@ namespace Emuses.Example.Controllers
             Response.Cookies.Append("Emuses.Example.SessionId", entity.SessionId, new CookieOptions
             {
                 Expires = DateTimeOffset.Now.AddDays(1), //Expires = entity.ExpireDateTime,
-                HttpOnly = true /*,
-                Secure = true*/
+                HttpOnly = true
+                // Secure = true
             });
 
             ViewData["session"] = $"Created session. Id: {entity.SessionId}, expired date: {entity.ExpireDateTime}";

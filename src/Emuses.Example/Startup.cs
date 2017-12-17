@@ -30,7 +30,7 @@ namespace Emuses.Example
             services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
             services.AddScoped<ISession, Session>();
             services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
-
+            
             services.AddMvc();
         }
 
@@ -51,6 +51,8 @@ namespace Emuses.Example
             }
 
             app.UseStaticFiles();
+
+            app.UseEmuses(30);
 
             app.UseMvc(routes =>
             {
