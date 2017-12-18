@@ -26,7 +26,7 @@ namespace Emuses.IntegrationTests
             var sessionCreated = CreateSession(out var sessionIdLine);
             IStorage storage = new FileStorage(DirectoryPath + "\\");
 
-            var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());            
+            var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
 
             sessionById.GetVersion().Should().Be(sessionCreated.GetVersion());
         }
@@ -37,31 +37,35 @@ namespace Emuses.IntegrationTests
             var sessionCreated = CreateSession(out var sessionIdLine);
             IStorage storage = new FileStorage(DirectoryPath + "\\");
 
-            var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());            
+            var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
             var sessionUpdated = sessionById.Update();
-            sessionUpdated = storage.Update(sessionUpdated);
 
             sessionIdLine.Should().Be($"SessionId:{sessionCreated.GetSessionId()}");
             sessionUpdated.GetSessionId().Should().Be(sessionCreated.GetSessionId());
             sessionUpdated.GetVersion().Should().NotBe(sessionCreated.GetVersion());
         }
 
+        [Fact]
+        public void delete_file_after_close_session()
+        {
+            var sessionCreated = CreateSession(out var _);
+
+            sessionCreated.Close();
+
+            File.Exists($"{DirectoryPath}\\{sessionCreated.GetSessionId()}.ses").Should().BeFalse();
+        }
+
         private static Session CreateSession(out string sessionIdLine)
         {
+            Directory.CreateDirectory(DirectoryPath);
             IStorage storage = new FileStorage(DirectoryPath + "\\");
             var session = new Session(30, storage).Open();
 
-            Directory.CreateDirectory(DirectoryPath);
-            var sessionCreated = storage.Create(session);
-
             var fileStream = new FileStream(DirectoryPath + "\\" + session.GetSessionId() + SessionFileExtension, FileMode.Open);
-
             using (var reader = new StreamReader(fileStream))
-            {
                 sessionIdLine = reader.ReadLine();
-            }
 
-            return sessionCreated;
+            return session;
         }
     }
 }

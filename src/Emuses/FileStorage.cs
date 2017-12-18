@@ -59,9 +59,9 @@ namespace Emuses
             return session;
         }
 
-        public Session Delete(string sessionId)
+        public void Delete(string sessionId)
         {
-            throw new System.NotImplementedException();
+            File.Delete(_directoryPath + sessionId + ".ses");
         }
     }
 }

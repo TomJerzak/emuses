@@ -8,6 +8,6 @@
 
         Session Update(Session session);
 
-        Session Delete(string sessionId);
+        void Delete(string sessionId);
     }
 }
