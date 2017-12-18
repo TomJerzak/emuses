@@ -4,9 +4,9 @@ namespace Emuses
 {
     public static class EmusesMiddlewareExtensions
     {
-        public static IApplicationBuilder UseEmuses(this IApplicationBuilder builder, int minutes)
+        public static IApplicationBuilder UseEmuses(this IApplicationBuilder builder, ISession session)
         {
-            return builder.UseMiddleware<EmusesMiddleware>(minutes);
+            return builder.UseMiddleware<EmusesMiddleware>(session);
         }
     }
 }

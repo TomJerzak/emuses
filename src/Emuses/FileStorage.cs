@@ -5,7 +5,9 @@ namespace Emuses
     public class FileStorage : IStorage
     {
         private readonly string _directoryPath;
-        
+
+        private FileStorage() { }
+
         public FileStorage(string directoryPath)
         {
             _directoryPath = directoryPath;

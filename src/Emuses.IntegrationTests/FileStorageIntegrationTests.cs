@@ -14,7 +14,7 @@ namespace Emuses.IntegrationTests
         public void create_file_after_open_new_session()
         {            
             IStorage storage = new FileStorage(DirectoryPath + "\\");
-            var session = new Session().Open(30, storage);
+            var session = new Session(30, storage).Open();
 
             Directory.CreateDirectory(DirectoryPath);
             var sessionCreated = storage.Create(session);

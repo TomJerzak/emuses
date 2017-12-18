@@ -20,7 +20,7 @@ namespace Emuses.Tests
         [Fact]
         public void open_new_session()
         {
-            ISession session = new Session().Open(30, _storage.Object);
+            ISession session = new Session(30, _storage.Object).Open();
             //_storage.Setup(x => x.Create(session)).Returns(session);
 
             session.GetSessionId().Should().NotBeNullOrEmpty();
@@ -30,7 +30,7 @@ namespace Emuses.Tests
         [Fact]
         public void update_session()
         {
-            ISession session = new Session().Open(1, _storage.Object);
+            ISession session = new Session(1, _storage.Object).Open();
             var sessionVersion = session.GetVersion();
 
             var sessionUpdated = session.Update();
@@ -42,7 +42,7 @@ namespace Emuses.Tests
         [Fact]
         public void throw_exception_on__update_if_session_expired()
         {
-            ISession session = new Session().Open(-1, _storage.Object);
+            ISession session = new Session(-1, _storage.Object).Open();
 
             var exception = Record.Exception(() => session.Update());
             exception.Should().NotBeNull();
@@ -52,7 +52,7 @@ namespace Emuses.Tests
         [Fact]
         public void close_session()
         {
-            ISession session = new Session().Open(1, _storage.Object);
+            ISession session = new Session(1, _storage.Object).Open();
 
             var sessionClosed = session.Close();
 
@@ -63,7 +63,7 @@ namespace Emuses.Tests
         [Fact]
         public void is_valid_session()
         {
-            ISession session = new Session().Open(1, _storage.Object);
+            ISession session = new Session(1, _storage.Object).Open();
 
             session.IsValid().Should().BeTrue();
         }
@@ -71,11 +71,11 @@ namespace Emuses.Tests
         [Fact]
         public void restore_session()
         {
-            ISession session = new Session();
             const string sessionId = "sessionId";
             const string version = "version";
             var now = DateTime.Now;
             const int minutes = 30;
+            ISession session = new Session(minutes, _storage.Object);            
 
             session.Restore(sessionId, version, now, minutes, _storage.Object).GetSessionId().Should().Be("sessionId");
             session.Restore(sessionId, version, now, minutes, _storage.Object).GetVersion().Should().Be("version");

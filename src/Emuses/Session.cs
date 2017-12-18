@@ -11,22 +11,23 @@ namespace Emuses
         private string _version;
         private IStorage _storage;
 
-        public Session()
-        {
-        }
+        private Session() { }
 
-        public Session(string sessionId, int minutes, IStorage storage)
-        {
-            _sessionId = sessionId;
+        public Session(int minutes, IStorage storage)
+        {            
             _minutes = minutes;
             _expireDateTime = DateTime.Now.AddMinutes(minutes);
             _version = GenerateVersion();
             _storage = storage;
         }
-        
-        public Session Open(int minutes, IStorage storage)
+
+        public Session Open()
         {
-            return new Session(Guid.NewGuid().ToString(), minutes, storage);
+            _sessionId = Guid.NewGuid().ToString();
+            _expireDateTime = DateTime.Now.AddMinutes(_minutes);
+
+            _storage.Create(this);
+            return this;
         }
 
         public Session Update()
@@ -36,6 +37,7 @@ namespace Emuses
 
             _expireDateTime = DateTime.Now.AddMinutes(_minutes);
             _version = GenerateVersion();
+
             return this;
         }
 

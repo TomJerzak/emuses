@@ -7,15 +7,14 @@ namespace Emuses
     public class EmusesMiddleware
     {
         private readonly RequestDelegate _next;
-        private Session _session;
-        private readonly int _minutes;
-        private readonly IStorage _storage;
+        private readonly ISession _session;
 
-        public EmusesMiddleware(RequestDelegate next, int minutes, IStorage storage)
+        private EmusesMiddleware() { }        
+
+        public EmusesMiddleware(RequestDelegate next, ISession session)
         {
+            _session = session;
             _next = next;
-            _minutes = minutes;
-            _storage = storage;
         }
 
         public Task Invoke(HttpContext context)
@@ -23,8 +22,7 @@ namespace Emuses
             context.Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
             if (string.IsNullOrEmpty(sessionId))
             {
-                _session = new Session().Open(_minutes, _storage);
-
+                _session.Open();
                 context.Response.Cookies.Append("Emuses.SessionId", _session.GetSessionId(), new CookieOptions
                 {
                     HttpOnly = true

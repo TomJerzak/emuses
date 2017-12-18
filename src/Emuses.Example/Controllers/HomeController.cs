@@ -29,7 +29,7 @@ namespace Emuses.Example.Controllers
         [HttpPost]
         public IActionResult Open()
         {
-            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open(1, _storage)));
+            var entity = _emusesSessionRepository.Create(new EmusesSession(_session.Open()));
 
             Response.Cookies.Append("Emuses.Example.SessionId", entity.SessionId, new CookieOptions
             {
