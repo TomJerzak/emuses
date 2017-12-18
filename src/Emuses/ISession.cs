@@ -10,6 +10,8 @@ namespace Emuses
 
         string GetVersion();
 
+        IStorage GetStorage();
+
         Session Open();
 
         Session Update();

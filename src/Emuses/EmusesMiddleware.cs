@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace Emuses
@@ -9,7 +8,9 @@ namespace Emuses
         private readonly RequestDelegate _next;
         private readonly ISession _session;
 
-        private EmusesMiddleware() { }        
+        private EmusesMiddleware()
+        {
+        }
 
         public EmusesMiddleware(RequestDelegate next, ISession session)
         {
@@ -31,7 +32,10 @@ namespace Emuses
             }
             else
             {
-                Console.WriteLine("Update");
+                var sessionBySessionId = _session.GetStorage().GetBySessionId(sessionId);
+                _session.Restore(sessionBySessionId.GetSessionId(), sessionBySessionId.GetVersion(), sessionBySessionId.GetExpiredDate(), sessionBySessionId.GetMinutes(), sessionBySessionId.GetStorage());
+
+                _session.Update();
             }
 
             return _next(context);
