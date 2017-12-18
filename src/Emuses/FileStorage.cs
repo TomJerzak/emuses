@@ -48,7 +48,15 @@ namespace Emuses
 
         public Session Update(Session session)
         {
-            throw new System.NotImplementedException();
+            using (var file = new StreamWriter(File.OpenWrite(_directoryPath + session.GetSessionId() + ".ses")))
+            {
+                file.WriteLine($"SessionId:{session.GetSessionId()}");
+                file.WriteLine($"Version:{session.GetVersion()}");
+                file.WriteLine($"Minutes:{session.GetMinutes()}");
+                file.WriteLine($"ExpiredDate:{session.GetExpiredDate()}");
+            }
+
+            return session;
         }
 
         public Session Delete(string sessionId)
