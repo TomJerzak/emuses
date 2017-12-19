@@ -11,9 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace Emuses.Example
 {
     public class Startup
-    {
-        private readonly IStorage _fileStorage = new FileStorage(@"C:\Temp\Emuses\");
-
+    {        
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -32,7 +30,7 @@ namespace Emuses.Example
             services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
             services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
 
-            services.AddScoped<IStorage, FileStorage>();
+//            services.AddScoped<IStorage, FileStorage>();
 
             services.AddMvc();
         }
@@ -55,7 +53,7 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(60, _fileStorage);
+            app.UseEmuses(60, new FileStorage(@"C:\Temp\Emuses\"));
 
             app.UseMvc(routes =>
             {

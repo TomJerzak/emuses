@@ -9,15 +9,15 @@ namespace Emuses.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Session _session;
-        private readonly IStorage _storage;
-        private readonly IEmusesSessionRepository _emusesSessionRepository;
+//        private readonly Session _session;
+//        private readonly IStorage _storage;
+//        private readonly IEmusesSessionRepository _emusesSessionRepository;
 
-        public HomeController(IEmusesSessionRepository emusesSessionRepository, IStorage storage)
+        public HomeController(/*IEmusesSessionRepository emusesSessionRepository, IStorage storage*/)
         {            
-            _session = new Session(30, storage);
-            _emusesSessionRepository = emusesSessionRepository;
-            _storage = storage;
+//            _session = new Session(30, storage);
+//            _emusesSessionRepository = emusesSessionRepository;
+//            _storage = storage;
         }
 
         public IActionResult Index()
@@ -25,7 +25,7 @@ namespace Emuses.Example.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
+        /*[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Open()
         {
@@ -120,6 +120,6 @@ namespace Emuses.Example.Controllers
                 ViewData["session"] = "Session is invalid.";
 
             return View("Index");
-        }
+        }*/
     }
 }
