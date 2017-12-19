@@ -13,7 +13,6 @@ namespace Emuses.Example
     public class Startup
     {
         private readonly IStorage _fileStorage = new FileStorage(@"C:\Temp\Emuses\");
-        private readonly Session _session;
 
         public Startup(IHostingEnvironment env)
         {
@@ -23,8 +22,6 @@ namespace Emuses.Example
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            _session = new Session(30, _fileStorage);
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -35,8 +32,7 @@ namespace Emuses.Example
             services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
             services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
 
-            services.AddScoped<ISession>(session => _session);
-            services.AddScoped<IStorage>(storage => _fileStorage);
+            services.AddScoped<IStorage, FileStorage>();
 
             services.AddMvc();
         }
@@ -59,7 +55,7 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(_session);
+            app.UseEmuses(60, _fileStorage);
 
             app.UseMvc(routes =>
             {

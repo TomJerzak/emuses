@@ -9,13 +9,13 @@ namespace Emuses.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISession _session;
+        private readonly Session _session;
         private readonly IStorage _storage;
         private readonly IEmusesSessionRepository _emusesSessionRepository;
 
-        public HomeController(ISession session, IEmusesSessionRepository emusesSessionRepository, IStorage storage)
-        {
-            _session = session;
+        public HomeController(IEmusesSessionRepository emusesSessionRepository, IStorage storage)
+        {            
+            _session = new Session(30, storage);
             _emusesSessionRepository = emusesSessionRepository;
             _storage = storage;
         }

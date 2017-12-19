@@ -3,7 +3,7 @@ using Emuses.Exceptions;
 
 namespace Emuses
 {
-    public class Session : ISession
+    public class Session
     {
         private string _sessionId;
         private int _minutes;
@@ -53,6 +53,11 @@ namespace Emuses
             _storage = storage;
 
             return this;
+        }
+
+        public void SetSessionTimeout(int minutes)
+        {
+            _minutes = minutes;
         }
 
         public Session Close()

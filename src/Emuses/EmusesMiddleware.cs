@@ -6,15 +6,13 @@ namespace Emuses
     public class EmusesMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ISession _session;
+        private readonly Session _session;
 
-        private EmusesMiddleware()
-        {
-        }
+        private EmusesMiddleware() { }
 
-        public EmusesMiddleware(RequestDelegate next, ISession session)
+        public EmusesMiddleware(RequestDelegate next, int sessionTimeout, IStorage storage)
         {
-            _session = session;
+            _session = new Session(sessionTimeout, storage);
             _next = next;
         }
 
