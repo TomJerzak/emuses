@@ -8,7 +8,7 @@ namespace Emuses
     {
         private readonly string _directoryPath;
 
-        public FileStorage() { }
+        private FileStorage() { }
 
         public FileStorage(string directoryPath)
         {
