@@ -7,7 +7,7 @@ namespace Emuses
     {
         private string _sessionId;
         private int _minutes;
-        private DateTime _expireDateTime;
+        private DateTime _expirationData;
         private string _version;
         private IStorage _storage;
 
@@ -18,7 +18,7 @@ namespace Emuses
         public Session(int minutes, IStorage storage)
         {
             _minutes = minutes;
-            _expireDateTime = DateTime.Now.AddMinutes(minutes);
+            _expirationData = DateTime.Now.AddMinutes(minutes);
             _version = GenerateVersion();
             _storage = storage;
         }
@@ -26,7 +26,7 @@ namespace Emuses
         public Session Open()
         {
             _sessionId = Guid.NewGuid().ToString();
-            _expireDateTime = DateTime.Now.AddMinutes(_minutes);
+            _expirationData = DateTime.Now.AddMinutes(_minutes);
 
             _storage.Create(this);
             return this;
@@ -34,10 +34,10 @@ namespace Emuses
 
         public Session Update()
         {
-            if (GetExpiredDate() < DateTime.Now)
+            if (GetExpirationDate() < DateTime.Now)
                 throw new SessionExpiredException();
 
-            _expireDateTime = DateTime.Now.AddMinutes(_minutes);
+            _expirationData = DateTime.Now.AddMinutes(_minutes);
             _version = GenerateVersion();
 
             _storage.Update(this);
@@ -48,7 +48,7 @@ namespace Emuses
         {
             _sessionId = sessionId;
             _version = version;
-            _expireDateTime = expiredDateTime;
+            _expirationData = expiredDateTime;
             _minutes = minutes;
             _storage = storage;
 
@@ -62,7 +62,7 @@ namespace Emuses
 
         public Session Close()
         {
-            _expireDateTime = DateTime.Now;
+            _expirationData = DateTime.Now;
             _version = string.Empty;
 
             _storage.Delete(_sessionId);
@@ -71,7 +71,7 @@ namespace Emuses
 
         public bool IsValid()
         {
-            return GetExpiredDate() > DateTime.Now;
+            return GetExpirationDate() > DateTime.Now;
         }
 
         public string GetSessionId()
@@ -84,9 +84,9 @@ namespace Emuses
             return _minutes;
         }
 
-        public DateTime GetExpiredDate()
+        public DateTime GetExpirationDate()
         {
-            return _expireDateTime;
+            return _expirationData;
         }
 
         public string GetVersion()

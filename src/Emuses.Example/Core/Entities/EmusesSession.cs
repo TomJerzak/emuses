@@ -22,7 +22,7 @@ namespace Emuses.Example.Core.Entities
         {            
             SessionId = session.GetSessionId();
             Minutes = session.GetMinutes();
-            ExpireDateTime = session.GetExpiredDate();
+            ExpireDateTime = session.GetExpirationDate();
             Version = session.GetVersion();
         }
     }

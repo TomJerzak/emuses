@@ -31,7 +31,7 @@ namespace Emuses
             else
             {
                 var sessionBySessionId = _session.GetStorage().GetBySessionId(sessionId);
-                _session.Restore(sessionBySessionId.GetSessionId(), sessionBySessionId.GetVersion(), sessionBySessionId.GetExpiredDate(), sessionBySessionId.GetMinutes(), sessionBySessionId.GetStorage());
+                _session.Restore(sessionBySessionId.GetSessionId(), sessionBySessionId.GetVersion(), sessionBySessionId.GetExpirationDate(), sessionBySessionId.GetMinutes(), sessionBySessionId.GetStorage());
 
                 _session.Update();
             }

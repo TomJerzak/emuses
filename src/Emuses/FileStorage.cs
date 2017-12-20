@@ -40,7 +40,7 @@ namespace Emuses
                 file.WriteLine($"SessionId:{session.GetSessionId()}");
                 file.WriteLine($"Version:{session.GetVersion()}");
                 file.WriteLine($"Minutes:{session.GetMinutes()}");
-                file.WriteLine($"ExpiredDate:{session.GetExpiredDate()}");
+                file.WriteLine($"ExpiredDate:{session.GetExpirationDate()}");
             }
 
             return session;
@@ -53,7 +53,7 @@ namespace Emuses
                 file.WriteLine($"SessionId:{session.GetSessionId()}");
                 file.WriteLine($"Version:{session.GetVersion()}");
                 file.WriteLine($"Minutes:{session.GetMinutes()}");
-                file.WriteLine($"ExpiredDate:{session.GetExpiredDate()}");
+                file.WriteLine($"ExpiredDate:{session.GetExpirationDate()}");
             }
 
             return session;

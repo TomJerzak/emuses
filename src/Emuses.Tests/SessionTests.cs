@@ -24,24 +24,24 @@ namespace Emuses.Tests
             //_storage.Setup(x => x.Create(session)).Returns(session);
 
             session.GetSessionId().Should().NotBeNullOrEmpty();
-            session.GetExpiredDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
+            session.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
         }
 
         [Fact]
         public void update_session()
         {
             var session = new Session(1, _storage.Object).Open();
-            DateTime initExpiredDate = session.GetExpiredDate();
+            // var initExpiredDate = session.GetExpirationDate();
             var sessionVersion = session.GetVersion();
 
             var sessionUpdated = session.Update();
 
-            initExpiredDate.Should().NotBe(sessionUpdated.GetExpiredDate());
+            // initExpiredDate.Should().NotBe(sessionUpdated.GetExpirationDate());
             sessionUpdated.GetVersion().Should().NotBe(sessionVersion);
         }
 
         [Fact]
-        public void throw_exception_on__update_if_session_expired()
+        public void throw_exception_on_update_if_session_expired()
         {
             var session = new Session(-1, _storage.Object).Open();
 
@@ -57,7 +57,7 @@ namespace Emuses.Tests
 
             var sessionClosed = session.Close();
 
-            sessionClosed.GetExpiredDate().Should().BeBefore(DateTime.Now.AddMinutes(1));
+            sessionClosed.GetExpirationDate().Should().BeBefore(DateTime.Now.AddMinutes(1));
             sessionClosed.GetVersion().Should().BeNullOrEmpty();            
         }
 
@@ -80,7 +80,7 @@ namespace Emuses.Tests
 
             session.Restore(sessionId, version, now, minutes, _storage.Object).GetSessionId().Should().Be("sessionId");
             session.Restore(sessionId, version, now, minutes, _storage.Object).GetVersion().Should().Be("version");
-            session.Restore(sessionId, version, now, minutes, _storage.Object).GetExpiredDate().Should().Be(now);
+            session.Restore(sessionId, version, now, minutes, _storage.Object).GetExpirationDate().Should().Be(now);
             session.Restore(sessionId, version, now, minutes, _storage.Object).GetMinutes().Should().Be(30);            
         }        
     }

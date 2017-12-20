@@ -16,7 +16,7 @@ namespace Emuses.IntegrationTests
             var sessionCreated = CreateSession(out var sessionIdLine);
 
             sessionCreated.GetSessionId().Should().NotBeNullOrEmpty();
-            sessionCreated.GetExpiredDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
+            sessionCreated.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
             sessionIdLine.Should().Be($"SessionId:{sessionCreated.GetSessionId()}");
         }
 
