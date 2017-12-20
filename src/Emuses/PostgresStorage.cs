@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Emuses.Exceptions;
+using Npgsql;
 
 namespace Emuses
 {
@@ -17,59 +18,97 @@ namespace Emuses
 
         public Session GetBySessionId(string sessionId)
         {
-            throw new System.NotImplementedException();
+            var session = new Session(0, this);
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand("SELECT session_id, version, minutes, expiration_date FROM sessions", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var sessionIdFromDb = reader.GetString(0);
+                            var versionFromDb = reader.GetString(1);
+                            var minutesFromDb = reader.GetInt32(2);
+                            var expirationDateFromDb = reader.GetDateTime(3);
+
+                            session.Restore(sessionIdFromDb, versionFromDb, expirationDateFromDb, minutesFromDb, this);
+                        }
+                    }
+                }
+            }
+
+            return session;
         }
 
         public Session Create(Session session)
         {
+            int result;
+            const string query = "INSERT INTO sessions (session_id, version, minutes, expiration_date) VALUES (@session_id, @version, @minutes, @expiration_date)";
+
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-
-                using (var command = new NpgsqlCommand())
+                using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    command.CommandText = "INSERT INTO sessions (session_id) VALUES (@session_id)";
                     command.Parameters.AddWithValue("session_id", session.GetSessionId());
-                    command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("version", session.GetVersion());
+                    command.Parameters.AddWithValue("minutes", session.GetMinutes());
+                    command.Parameters.AddWithValue("expiration_date", session.GetExpirationDate());
+                    result = command.ExecuteNonQuery();
                 }
             }
 
-            throw new System.NotImplementedException();
+            if (result == 1)
+                return session;
+
+            throw new PostgresStorageInsertException();
         }
 
         public Session Update(Session session)
         {
-            throw new System.NotImplementedException();
+            int result;
+            const string query = "UPDATE sessions SET version = @version, minutes = @minutes, expiration_date = @expiration_date WHERE session_id = @session_id";
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("session_id", session.GetSessionId());
+                    command.Parameters.AddWithValue("version", session.GetVersion());
+                    command.Parameters.AddWithValue("minutes", session.GetMinutes());
+                    command.Parameters.AddWithValue("expiration_date", session.GetExpirationDate());
+                    result = command.ExecuteNonQuery();
+                }
+            }
+
+            if (result == 1)
+                return session;
+
+            throw new PostgresStorageUpdateException();
         }
 
         public void Delete(string sessionId)
         {
-            throw new System.NotImplementedException();
+            int result;
+            const string query = "DELETE FROM sessions WHERE session_id = @session_id";
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("session_id", sessionId);
+                    result = command.ExecuteNonQuery();
+                }
+            }
+
+            if (result == 1)
+                return;
+
+            throw new PostgresStorageDeleteException();
         }
     }
 }
-
-/*
- var connString = "Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase";
-
-using (var conn = new NpgsqlConnection(connString))
-{
-    conn.Open();
-
-    // Insert some data
-    using (var cmd = new NpgsqlCommand())
-    {
-        cmd.Connection = conn;
-        cmd.CommandText = "INSERT INTO data (some_field) VALUES (@p)";
-        cmd.Parameters.AddWithValue("p", "Hello world");
-        cmd.ExecuteNonQuery();
-    }
-
-    // Retrieve all rows
-    using (var cmd = new NpgsqlCommand("SELECT some_field FROM data", conn))
-    using (var reader = cmd.ExecuteReader())
-        while (reader.Read())
-            Console.WriteLine(reader.GetString(0));
-}
-     */
