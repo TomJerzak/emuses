@@ -54,6 +54,7 @@ namespace Emuses.Example
             app.UseStaticFiles();
 
             app.UseEmuses(60, new FileStorage(@"C:\Temp\Emuses\"));
+            // app.UseEmuses(60, new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
             app.UseMvc(routes =>
             {
