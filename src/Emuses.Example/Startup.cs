@@ -1,9 +1,7 @@
-﻿using Emuses.Example.Core;
-using Emuses.Example.Core.Repositories;
-using Emuses.Example.Core.Services;
+﻿using System.Collections.Generic;
+using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,10 +25,8 @@ namespace Emuses.Example
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase());
-            services.AddScoped<IEmusesSessionRepository, EmusesSessionService>();
-
-//            services.AddScoped<IStorage, FileStorage>();
+            services.AddScoped<IStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
+            services.AddScoped<Session>(session => new Session(1, new FileStorage(@"C:\Temp\Emuses\")));
 
             services.AddMvc();
         }
@@ -53,7 +49,7 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(60, new FileStorage(@"C:\Temp\Emuses\"));
+            app.UseEmuses(1, new FileStorage(@"C:\Temp\Emuses\"), "/Account/Expired", new List<string>() {"/Account/Login", "Account/Logout"});
             // app.UseEmuses(60, new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
             app.UseMvc(routes =>

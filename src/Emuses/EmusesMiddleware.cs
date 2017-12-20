@@ -10,43 +10,42 @@ namespace Emuses
     {
         private readonly RequestDelegate _next;
         private readonly Session _session;
+        private readonly string _sessionExpiredPage;
+        private readonly List<string> _noSessionAccessPages;
 
         private EmusesMiddleware()
         {
         }
 
-        public EmusesMiddleware(RequestDelegate next, int sessionTimeout, IStorage storage)
+        public EmusesMiddleware(RequestDelegate next, int sessionTimeout, IStorage storage, string sessionExpiredPage, List<string> noSessionAccessPages)
         {
             _session = new Session(sessionTimeout, storage);
+            _sessionExpiredPage = sessionExpiredPage;
+
+            _noSessionAccessPages = noSessionAccessPages ?? new List<string>();
+            _noSessionAccessPages.Add(sessionExpiredPage);
+
             _next = next;
         }
 
         public Task Invoke(HttpContext context)
         {
-            if(IsAnonymousAccessPath(context.Request.Path.Value))            
+            if (IsAnonymousAccessPath(context.Request.Path.Value))
                 return _next(context);
 
             context.Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
 
-            return string.IsNullOrEmpty(sessionId) ? OpenSession(context) : UpdateSession(context, sessionId);
+            return string.IsNullOrEmpty(sessionId) ? RedirectToSignIn(context) : UpdateSession(context, sessionId);
         }
 
-        private static bool IsAnonymousAccessPath(string path)
+        private bool IsAnonymousAccessPath(string path)
         {
-            var anonymousPaths = new List<string> {"/Account/Login", "/Account/Logout", "/Account/Expired"};
-
-            return anonymousPaths.Any(anonymousPath => path.ToLower().Contains(anonymousPath.ToLower()));
+            return _noSessionAccessPages.Any(anonymousPath => path.ToLower().Contains(anonymousPath.ToLower()));
         }
 
-        private Task OpenSession(HttpContext context)
+        private Task RedirectToSignIn(HttpContext context)
         {
-            _session.Open();
-            context.Response.Cookies.Append("Emuses.SessionId", _session.GetSessionId(), new CookieOptions
-            {
-                HttpOnly = true
-                // Secure = true
-            });
-
+            context.Response.Redirect("/Account/Login", true);
             return _next(context);
         }
 
@@ -62,7 +61,7 @@ namespace Emuses
             }
             catch (SessionExpiredException)
             {
-                context.Response.Redirect("/Account/Expired", true);
+                context.Response.Redirect(_sessionExpiredPage, true);
                 return _next(context);
             }
         }
