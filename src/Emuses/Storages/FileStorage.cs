@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using static System.Int32;
 
-namespace Emuses
+namespace Emuses.Storages
 {
     public class FileStorage : IStorage
     {
@@ -23,7 +22,7 @@ namespace Emuses
             {
                 var id = reader.ReadLine().Substring(10);
                 var version = reader.ReadLine().Substring(8);
-                var minutes = Parse(reader.ReadLine().Substring(8));
+                var minutes = Int32.Parse(reader.ReadLine().Substring(8));
                 var expiredDate = DateTime.Parse(reader.ReadLine().Substring(12));
 
                 session = new Session(minutes, this);

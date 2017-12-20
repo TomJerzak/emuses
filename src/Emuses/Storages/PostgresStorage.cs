@@ -1,7 +1,7 @@
 ﻿using Emuses.Exceptions;
 using Npgsql;
 
-namespace Emuses
+namespace Emuses.Storages
 {
     public class PostgresStorage : IStorage
     {

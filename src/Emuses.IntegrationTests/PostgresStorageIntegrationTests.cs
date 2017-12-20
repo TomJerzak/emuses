@@ -1,5 +1,6 @@
 ﻿using System;
 using Emuses.Exceptions;
+using Emuses.Storages;
 using FluentAssertions;
 using Xunit;
 
