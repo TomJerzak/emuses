@@ -1,39 +1,33 @@
-﻿@{
+﻿@model Emuses.Session
+@{
     ViewData["Title"] = "Home Page";
 }
 
-@*<div class="row">
+<h2>Session info:</h2>
 
-        <div class="col-md-3">
-            <h2>Open session</h2>
-            <form asp-controller="Home" asp-action="Open" method="post">
-                <input type="submit" value="Open"/>
-            </form>
-        </div>
-
-        <div class="col-md-3">
-            <h2>Update session</h2>
-            <form asp-controller="Home" asp-action="Update" method="post">
-                <input type="submit" value="Update"/>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <h2>Close session</h2>
-            <form asp-controller="Home" asp-action="Close" method="post">
-                <input type="submit" value="Close" />
-            </form>
-        </div>
-        <div class="col-md-3">
-            <h2>Is valid session?</h2>
-            <form asp-controller="Home" asp-action="IsValid" method="post">
-                <input type="submit" value="Check" />
-            </form>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <span><strong>Session id:</strong> @Model.GetSessionId()</span>
         </div>
     </div>
+
     <div class="row">
-        @if (ViewData["session"] != null)
-        {
-            <br/>
-            <span>@ViewData["session"].ToString()</span>
-        }
-    </div>*@
+        <div class="col-md-12">
+            <span><strong>Expiration date:</strong> @Model.GetExpirationDate()</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <span><strong>Version:</strong> @Model.GetVersion()</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <span><strong>Session timeout: </strong>@Model.GetSessionTimeout()</span>
+        </div>
+    </div>
+}

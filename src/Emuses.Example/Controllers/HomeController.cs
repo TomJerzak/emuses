@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Example.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IStorage _storage;
+
+        public HomeController(IStorage storage)
+        {
+            _storage = storage;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
+
+            return sessionId != null ? View(_storage.GetBySessionId(sessionId)) : View();
         }
     }
 }
