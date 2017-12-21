@@ -25,7 +25,8 @@ namespace Emuses.Example
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
+            // services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
+            services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
             services.AddMvc();
         }
@@ -48,21 +49,21 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(new EmusesConfiguration
+            /*app.UseEmuses(new EmusesConfiguration
             {
                 OpenSessionPage = "/Account/Login",
                 SessionExpiredPage = "/Account/Expired",
                 NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
                 Storage = new FileStorage(@"C:\Temp\Emuses\")
-            });
+            });*/
 
-//            app.UseEmuses(new EmusesConfiguration()
-//            {
-//                OpenSessionPage = "/Account/Login",
-//                SessionExpiredPage = "/Account/Expired",
-//                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
-//                Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
-//            });
+            app.UseEmuses(new EmusesConfiguration()
+            {
+                OpenSessionPage = "/Account/Login",
+                SessionExpiredPage = "/Account/Expired",
+                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
+                Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
+            });
 
             app.UseMvc(routes =>
             {
