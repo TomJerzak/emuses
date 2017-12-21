@@ -9,21 +9,19 @@ namespace Emuses
     public class EmusesMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly Session _session;
-        private readonly string _sessionExpiredPage;
-        private readonly List<string> _noSessionAccessPages;
+        private readonly EmusesConfiguration _configuration;
 
         private EmusesMiddleware()
         {
         }
 
-        public EmusesMiddleware(RequestDelegate next, int sessionTimeout, IStorage storage, string sessionExpiredPage, List<string> noSessionAccessPages)
+        public EmusesMiddleware(RequestDelegate next, EmusesConfiguration emusesConfiguration)
         {
-            _session = new Session(sessionTimeout, storage);
-            _sessionExpiredPage = sessionExpiredPage;
+            _configuration = emusesConfiguration;
+            if (_configuration.NoSessionAccessPages == null)
+                _configuration.NoSessionAccessPages = new List<string>();
 
-            _noSessionAccessPages = noSessionAccessPages ?? new List<string>();
-            _noSessionAccessPages.Add(sessionExpiredPage);
+            _configuration.NoSessionAccessPages.Add(_configuration.SessionExpiredPage);
 
             _next = next;
         }
@@ -40,7 +38,7 @@ namespace Emuses
 
         private bool IsAnonymousAccessPath(string path)
         {
-            return _noSessionAccessPages.Any(anonymousPath => path.ToLower().Contains(anonymousPath.ToLower()));
+            return _configuration.NoSessionAccessPages.Any(anonymousPath => path.ToLower().Contains(anonymousPath.ToLower()));
         }
 
         private Task RedirectToSignIn(HttpContext context)
@@ -53,15 +51,15 @@ namespace Emuses
         {
             try
             {
-                var sessionBySessionId = _session.GetStorage().GetBySessionId(sessionId);
-                _session.Restore(sessionBySessionId.GetSessionId(), sessionBySessionId.GetVersion(), sessionBySessionId.GetExpirationDate(), sessionBySessionId.GetMinutes(), sessionBySessionId.GetStorage());
+                var session = _configuration.Storage.GetBySessionId(sessionId);
 
-                _session.Update();
+                session.Update(sessionId);
+
                 return _next(context);
             }
             catch (SessionExpiredException)
             {
-                context.Response.Redirect(_sessionExpiredPage, true);
+                context.Response.Redirect(_configuration.SessionExpiredPage, true);
                 return _next(context);
             }
         }

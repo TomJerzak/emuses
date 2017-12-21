@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace Emuses.Example
 {
     public class Startup
-    {        
+    {
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -26,7 +26,6 @@ namespace Emuses.Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
-            services.AddScoped<Session>(session => new Session(1, new FileStorage(@"C:\Temp\Emuses\")));
 
             services.AddMvc();
         }
@@ -49,8 +48,21 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(1, new FileStorage(@"C:\Temp\Emuses\"), "/Account/Expired", new List<string>() {"/Account/Login", "Account/Logout"});
-            // app.UseEmuses(60, new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
+            app.UseEmuses(new EmusesConfiguration
+            {
+                OpenSessionPage = "/Account/Login",
+                SessionExpiredPage = "/Account/Expired",
+                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
+                Storage = new FileStorage(@"C:\Temp\Emuses\")
+            });
+
+//            app.UseEmuses(new EmusesConfiguration()
+//            {
+//                OpenSessionPage = "/Account/Login",
+//                SessionExpiredPage = "/Account/Expired",
+//                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
+//                Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
+//            });
 
             app.UseMvc(routes =>
             {
