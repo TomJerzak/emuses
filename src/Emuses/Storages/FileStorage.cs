@@ -5,9 +5,16 @@ namespace Emuses.Storages
 {
     public class FileStorage : IStorage
     {
+        private const string SessionId = "SessionId:";
+        private const string Version = "Version:";
+        private const string SessionTimeout = "SessionTimeout:";
+        private const string ExpirationDate = "ExpirationDate:";
+
         private readonly string _directoryPath;
 
-        private FileStorage() { }
+        private FileStorage()
+        {
+        }
 
         public FileStorage(string directoryPath)
         {
@@ -20,13 +27,12 @@ namespace Emuses.Storages
             var fileStream = new FileStream(_directoryPath + sessionId + ".ses", FileMode.Open);
             using (var reader = new StreamReader(fileStream))
             {
-                var id = reader.ReadLine().Substring(10);
-                var version = reader.ReadLine().Substring(8);
-                var minutes = Int32.Parse(reader.ReadLine().Substring(8));
-                var expiredDate = DateTime.Parse(reader.ReadLine().Substring(12));
+                var sessionIdFromFile = reader.ReadLine().Substring(SessionId.Length);
+                var versionFromFile = reader.ReadLine().Substring(Version.Length);
+                var sessionTimeoutFromFile = int.Parse(reader.ReadLine().Substring(SessionTimeout.Length));
+                var expirationDateFromFile = DateTime.Parse(reader.ReadLine().Substring(ExpirationDate.Length));
 
-                session = new Session(minutes, this);
-                session.Restore(id, version, expiredDate, minutes, this);
+                session = new Session(sessionIdFromFile, versionFromFile, sessionTimeoutFromFile, expirationDateFromFile, this);
             }
 
             return session;
@@ -36,10 +42,10 @@ namespace Emuses.Storages
         {
             using (var file = new StreamWriter(File.Create(_directoryPath + session.GetSessionId() + ".ses")))
             {
-                file.WriteLine($"SessionId:{session.GetSessionId()}");
-                file.WriteLine($"Version:{session.GetVersion()}");
-                file.WriteLine($"Minutes:{session.GetMinutes()}");
-                file.WriteLine($"ExpiredDate:{session.GetExpirationDate()}");
+                file.WriteLine($"{SessionId}{session.GetSessionId()}");
+                file.WriteLine($"{Version}{session.GetVersion()}");
+                file.WriteLine($"{SessionTimeout}{session.GetSessionTimeout()}");
+                file.WriteLine($"{ExpirationDate}{session.GetExpirationDate()}");
             }
 
             return session;
@@ -51,8 +57,8 @@ namespace Emuses.Storages
             {
                 file.WriteLine($"SessionId:{session.GetSessionId()}");
                 file.WriteLine($"Version:{session.GetVersion()}");
-                file.WriteLine($"Minutes:{session.GetMinutes()}");
-                file.WriteLine($"ExpiredDate:{session.GetExpirationDate()}");
+                file.WriteLine($"SessionTimeout:{session.GetSessionTimeout()}");
+                file.WriteLine($"ExpirationDate:{session.GetExpirationDate()}");
             }
 
             return session;

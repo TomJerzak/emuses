@@ -13,14 +13,16 @@ namespace Emuses.IntegrationTests
         [Fact]
         public void insert_to_db_after_open_new_session()
         {
-            var sessionCreated = CreateSession(out var entity);
+            var sessionCreated = CreateSession(out var entitySelected);
 
             sessionCreated.GetSessionId().Should().NotBeNullOrEmpty();
-            sessionCreated.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
-            entity.GetSessionId().Should().Be(sessionCreated.GetSessionId());
-            // entity.GetExpirationDate().Should().Be(sessionCreated.GetExpirationDate());
-            entity.GetVersion().Should().Be(sessionCreated.GetVersion());
-            entity.GetMinutes().Should().Be(sessionCreated.GetMinutes());
+            entitySelected.GetSessionId().Should().NotBeNullOrEmpty();
+            sessionCreated.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(55));
+            entitySelected.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(55));
+            entitySelected.GetSessionId().Should().Be(sessionCreated.GetSessionId());
+            // entitySelected.GetExpirationDate().Should().Be(sessionCreated.GetExpirationDate());
+            entitySelected.GetVersion().Should().Be(sessionCreated.GetVersion());
+            entitySelected.GetSessionTimeout().Should().Be(sessionCreated.GetSessionTimeout());
         }
 
         [Fact]
@@ -60,8 +62,8 @@ namespace Emuses.IntegrationTests
             IStorage storage = new PostgresStorage(ConnectionString);
             var entity = storage.GetBySessionId(session.GetSessionId());
 
-            session.Restore(entity.GetSessionId(), entity.GetVersion(), entity.GetExpirationDate(), entity.GetMinutes(), storage);
-            var result = session.Update();
+            session = new Session(entity.GetSessionId(), entity.GetVersion(), entity.GetSessionTimeout(), entity.GetExpirationDate(), storage);
+            session.Update(session.GetSessionId());
 
             return storage.GetBySessionId(session.GetSessionId());            
         }
@@ -69,7 +71,7 @@ namespace Emuses.IntegrationTests
         private static Session CreateSession(out Session entitySelected)
         {
             IStorage storage = new PostgresStorage(ConnectionString);
-            var session = new Session(30, storage).Open();
+            var session = new Session(storage).Open();
 
             entitySelected = storage.GetBySessionId(session.GetSessionId());
 

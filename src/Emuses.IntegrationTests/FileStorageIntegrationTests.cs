@@ -39,7 +39,7 @@ namespace Emuses.IntegrationTests
             IStorage storage = new FileStorage(DirectoryPath + "\\");
 
             var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
-            var sessionUpdated = sessionById.Update();
+            var sessionUpdated = sessionById.Update(sessionCreated.GetSessionId());
 
             sessionIdLine.Should().Be($"SessionId:{sessionCreated.GetSessionId()}");
             sessionUpdated.GetSessionId().Should().Be(sessionCreated.GetSessionId());
