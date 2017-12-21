@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStorage _storage;
+        private readonly ISessionStorage _storage;
 
-        public HomeController(IStorage storage)
+        public HomeController(ISessionStorage storage)
         {
             _storage = storage;
         }

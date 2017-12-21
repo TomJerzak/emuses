@@ -7,7 +7,7 @@ namespace Emuses.Example.Controllers
     {
         private readonly Session _session;
 
-        public AccountController(IStorage storage)
+        public AccountController(ISessionStorage storage)
         {
             _session = new Session(1, storage);
         }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Emuses.Storages
 {
-    public class FileStorage : IStorage
+    public class FileStorage : ISessionStorage
     {
         private const string SessionId = "SessionId:";
         private const string Version = "Version:";

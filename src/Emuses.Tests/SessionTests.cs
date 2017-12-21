@@ -8,11 +8,11 @@ namespace Emuses.Tests
 {
     public class SessionTests /* : IDisposable*/
     {
-        private readonly Mock<IStorage> _storage;
+        private readonly Mock<ISessionStorage> _storage;
 
         public SessionTests()
         {
-            _storage = new Mock<IStorage>();
+            _storage = new Mock<ISessionStorage>();
         }
 
         /*public void Dispose() { }*/

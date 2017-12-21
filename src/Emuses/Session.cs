@@ -11,17 +11,17 @@ namespace Emuses
         private string _version;
         private int _sessionTimeout;
         private DateTime _expirationData;
-        private IStorage _storage;
+        private ISessionStorage _storage;
 
         private Session()
         {
         }
 
-        public Session(IStorage storage) : this(DefaultSessionTimeout, storage)
+        public Session(ISessionStorage storage) : this(DefaultSessionTimeout, storage)
         {
         }
 
-        public Session(int sessionTimeout, IStorage storage)
+        public Session(int sessionTimeout, ISessionStorage storage)
         {
             _sessionTimeout = sessionTimeout;
             _version = GenerateVersion();
@@ -29,7 +29,7 @@ namespace Emuses
             _storage = storage;
         }
 
-        public Session(string sessionId, string version, int sessionTimeout, DateTime expirationData, IStorage storage)
+        public Session(string sessionId, string version, int sessionTimeout, DateTime expirationData, ISessionStorage storage)
         {
             _sessionId = sessionId;
             _version = version;
@@ -111,7 +111,7 @@ namespace Emuses
         }
 
         // TODO - metoda do usunięcia po zrezygnowaniu z metody Restore. Metoda Update powinna jednocześnie obsługiwać restore ze storage jak i aktualizować sesję.
-        public IStorage GetStorage()
+        public ISessionStorage GetStorage()
         {
             return _storage;
         }

@@ -59,7 +59,7 @@ namespace Emuses.IntegrationTests
 
         private static Session UpdateSession(Session session)
         {
-            IStorage storage = new PostgresStorage(ConnectionString);
+            ISessionStorage storage = new PostgresStorage(ConnectionString);
             var entity = storage.GetBySessionId(session.GetSessionId());
 
             session = new Session(entity.GetSessionId(), entity.GetVersion(), entity.GetSessionTimeout(), entity.GetExpirationDate(), storage);
@@ -70,7 +70,7 @@ namespace Emuses.IntegrationTests
 
         private static Session CreateSession(out Session entitySelected)
         {
-            IStorage storage = new PostgresStorage(ConnectionString);
+            ISessionStorage storage = new PostgresStorage(ConnectionString);
             var session = new Session(storage).Open();
 
             entitySelected = storage.GetBySessionId(session.GetSessionId());

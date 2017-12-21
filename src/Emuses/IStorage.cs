@@ -1,6 +1,6 @@
 ﻿namespace Emuses
 {
-    public interface IStorage
+    public interface ISessionStorage
     {
         Session GetBySessionId(string sessionId);
 

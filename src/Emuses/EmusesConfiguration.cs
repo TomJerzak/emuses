@@ -10,6 +10,6 @@ namespace Emuses
 
         public List<string> NoSessionAccessPages { get; set; }
 
-        public IStorage Storage { get; set; }
+        public ISessionStorage Storage { get; set; }
     }
 }

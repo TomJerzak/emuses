@@ -25,7 +25,7 @@ namespace Emuses.IntegrationTests
         public void restore_saved_session()
         {
             var sessionCreated = CreateSession(out var sessionIdLine);
-            IStorage storage = new FileStorage(DirectoryPath + "\\");
+            ISessionStorage storage = new FileStorage(DirectoryPath + "\\");
 
             var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
 
@@ -36,7 +36,7 @@ namespace Emuses.IntegrationTests
         public void update_file_after_update_session()
         {
             var sessionCreated = CreateSession(out var sessionIdLine);
-            IStorage storage = new FileStorage(DirectoryPath + "\\");
+            ISessionStorage storage = new FileStorage(DirectoryPath + "\\");
 
             var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
             var sessionUpdated = sessionById.Update(sessionCreated.GetSessionId());
@@ -59,7 +59,7 @@ namespace Emuses.IntegrationTests
         private static Session CreateSession(out string sessionIdLine)
         {
             Directory.CreateDirectory(DirectoryPath);
-            IStorage storage = new FileStorage(DirectoryPath + "\\");
+            ISessionStorage storage = new FileStorage(DirectoryPath + "\\");
             var session = new Session(30, storage).Open();
 
             var fileStream = new FileStream(DirectoryPath + "\\" + session.GetSessionId() + SessionFileExtension, FileMode.Open);

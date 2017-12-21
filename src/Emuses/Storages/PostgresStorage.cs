@@ -3,7 +3,7 @@ using Npgsql;
 
 namespace Emuses.Storages
 {
-    public class PostgresStorage : IStorage
+    public class PostgresStorage : ISessionStorage
     {
         private readonly string _connectionString;
 
