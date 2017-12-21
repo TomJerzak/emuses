@@ -1,4 +1,4 @@
-﻿@model Emuses.Session
+﻿@model Emuses.Example.Models.Home.SessionModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,25 +9,31 @@
 {
     <div class="row">
         <div class="col-md-12">
-            <span><strong>Session id:</strong> @Model.GetSessionId()</span>
+            <span><strong>Session id:</strong> @Model.Session.GetSessionId()</span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <span><strong>Expiration date:</strong> @Model.GetExpirationDate()</span>
+            <span><strong>Expiration date:</strong> @Model.Session.GetExpirationDate()</span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <span><strong>Version:</strong> @Model.GetVersion()</span>
+            <span><strong>Version:</strong> @Model.Session.GetVersion()</span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <span><strong>Session timeout: </strong>@Model.GetSessionTimeout()</span>
+            <span><strong>Session timeout: </strong>@Model.Session.GetSessionTimeout()</span>
         </div>
     </div>
+
+@*    <div class="row">*@
+@*        <div class="col-md-12">*@
+@*            <span><strong>Time to close session: </strong>@Model.TimeToCloseSession</span>*@
+@*        </div>*@
+@*    </div>*@
 }

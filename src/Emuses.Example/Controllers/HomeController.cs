@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Emuses.Example.Models.Home;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Example.Controllers
 {
@@ -14,8 +16,8 @@ namespace Emuses.Example.Controllers
         public IActionResult Index()
         {
             Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
-
-            return sessionId != null ? View(_storage.GetBySessionId(sessionId)) : View();
+            
+            return sessionId != null ? View(new SessionModel(_storage.GetBySessionId(sessionId))) : View();
         }
     }
 }
