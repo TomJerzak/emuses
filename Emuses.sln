@@ -1,15 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses", "Emuses\Emuses.csproj", "{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses", "src\Emuses\Emuses.csproj", "{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "Emuses.Tests\Emuses.Tests.csproj", "{C482E75D-290B-44BC-9319-AC2B9440FD86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "src\Emuses.Tests\Emuses.Tests.csproj", "{C482E75D-290B-44BC-9319-AC2B9440FD86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "Emuses.Example\Emuses.Example.csproj", "{9EE40059-0F79-45A1-88FD-B99F0C1E444D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "src\Emuses.Example\Emuses.Example.csproj", "{9EE40059-0F79-45A1-88FD-B99F0C1E444D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emuses.IntegrationTests", "Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{C6D511D5-596A-4B0A-946A-C046A81AA354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "src\Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{C6D511D5-596A-4B0A-946A-C046A81AA354}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{028D8F88-7F42-4566-BD4C-E345DAF61120}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
