@@ -2,8 +2,11 @@ language: csharp
 dist: trusty
 mono: none
 dotnet: 1.0.4
-install:
-- dotnet restore /src
+os:
+- linux
 script:
-- dotnet build /src
-- dotnet test src/Emuses.Tests/Emuses.Tests.csproj
+#- dotnet build /src
+#- dotnet test src/Emuses.Tests/Emuses.Tests.csproj
+- if test "$TRAVIS_OS_NAME" == "linux"; then dotnet restore; fi
+- if test "$TRAVIS_OS_NAME" == "osx"; then dotnet restore --disable-parallel; fi
+- dotnet build -c Release
