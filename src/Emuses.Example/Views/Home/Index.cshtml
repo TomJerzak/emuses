@@ -31,9 +31,60 @@
         </div>
     </div>
 
-@*    <div class="row">*@
-@*        <div class="col-md-12">*@
-@*            <span><strong>Time to close session: </strong>@Model.TimeToCloseSession</span>*@
-@*        </div>*@
-@*    </div>*@
+    <div class="row">
+        <div class="col-md-12">
+            <span><strong>Time to close session: </strong></span><span id="timeToCloseSession"></span>
+            <input type="hidden" id="minutes" name="minutes" value="@Model.Minutes" />
+            <input type="hidden" id="seconds" name="seconds" value="@Model.Seconds" />
+        </div>
+    </div>
+    
+    @section scripts {
+        <script>
+            var interval;
+
+            window.onload = function () {
+                var minutes = document.getElementById('minutes').value;
+                var seconds = document.getElementById('seconds').value;
+
+                printTimeToCloseSession("timeToCloseSession");
+
+                function printTimeToCloseSession(output) {
+                    interval = setInterval(function () {
+                        var element = document.getElementById(output);
+
+                        if (seconds === 0) {
+                            if (minutes === 0) {
+                                element.innerHTML = "Session closed!";
+                                clearInterval(interval);
+                                return;
+                            } else {
+                                minutes--;
+                                seconds = 60;
+                            }
+                        }
+
+                        var minuteText;
+                        if (minutes > 9) {
+                            minuteText = minutes;
+                        } else {
+                            minuteText = "0" + minutes;
+                        }
+
+                        var secondText;
+                        if (seconds > 9) {
+                            secondText = seconds;
+                        } else {
+                            secondText = "0" + seconds;
+                        }
+
+                        element.innerHTML = minuteText + ':' + secondText;
+
+                        seconds--;
+                    },
+                        1000);
+                }
+            }
+        </script>
+    }
 }

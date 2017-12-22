@@ -6,20 +6,21 @@ namespace Emuses.Example.Models.Home
     {
         public Session Session { get; set; }
 
-        public string TimeToCloseSession { get; set; }
+        public int Minutes { get; set; }
+
+        public int Seconds { get; set; }
 
         public SessionModel(Session session)
         {
             Session = session;
-
-            TimeToCloseSession = GetTimeToCloseSession(session.GetExpirationDate());
+            SetTimeToCloseSession(session.GetExpirationDate());
         }
 
-        private static string GetTimeToCloseSession(DateTime expirationDate)
+        private void SetTimeToCloseSession(DateTime expirationDate)
         {
             var result = (expirationDate - DateTime.Now);
-
-            return result.Hours.ToString("00") + ":" + result.Minutes.ToString("00") + ":" + result.Seconds.ToString("00");
+            Minutes = result.Minutes;
+            Seconds = result.Seconds;
         }
     }
 }

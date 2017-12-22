@@ -1,5 +1,4 @@
-﻿using System;
-using Emuses.Example.Models.Home;
+﻿using Emuses.Example.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Example.Controllers
