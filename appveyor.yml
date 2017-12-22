@@ -13,17 +13,18 @@ before_build:
   #- cmd: dotnet restore ./src/src.csproj --verbosity m
   - cmd: dotnet restore
 
-#build_script:
+build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
   #- cmd: dotnet publish ./src/src.csproj
-
+  - cmd: dotnet build -c Release
 #artifacts:
  #- path: '\src\bin\Debug\netcoreapp1.1\publish'
    #name: WebSite
    #type: WebDeployPackage
 #clone_depth: 1
 
-#test_script:
+test_script:
+  - cmd: dotnet test -c Release ./tests/Emuses.Tests/Emuses.Tests.csproj
   # restore packages for our unit tests
   #- cmd: dotnet restore ./tests/tests.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
