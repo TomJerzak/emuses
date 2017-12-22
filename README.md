@@ -1,13 +1,27 @@
 # emuses
 
 [![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses)
-  
-master [![Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=master)](https://travis-ci.org/teja-1010100/emuses/branches)
-  
-develop [![Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=develop)](https://travis-ci.org/teja-1010100/emuses/branches)
+
+
+## Build status
+
+&nbsp; | `master` | `dev`
+--- | --- | --- 
+**Windows** |---------------|---------------
+**Linux / OS X** | [![Travis CI Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=master)](https://travis-ci.org/teja-1010100/emuses/branches) | [![Travis CI Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=develop)](https://travis-ci.org/teja-1010100/emuses/branches)
+
+## Overview
 
 Emuses is simple session manager for .net core.
 
+## Installation
+
+Emuses is available as a NuGet package. You can install it using the NuGet Package Console window:
+  
+```
+PM> Install-Package Emuses
+```
+  
 ## Getting Started
 
 See our sample project (Emuses.Example) or use the instructions below.
@@ -35,7 +49,7 @@ ALTER TABLE public.sessions OWNER to emuses;
 ```
   
 Startup.cs  
-```C#
+```csharp
   public void ConfigureServices(IServiceCollection services)
   {
     ...
@@ -46,7 +60,7 @@ Startup.cs
   }
 ```
   
-```C#
+```csharp
   public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
   {
     ...
@@ -66,7 +80,7 @@ Startup.cs
 - Save sessions to files.
   
 Startup.cs  
-```C#
+```csharp
   public void ConfigureServices(IServiceCollection services)
   {
     ...
@@ -77,7 +91,7 @@ Startup.cs
   }
 ```
     
-```C#
+```csharp
   public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
   {
     ...
