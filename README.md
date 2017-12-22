@@ -1,6 +1,8 @@
 # emuses
 
 [![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses)
+  
+[![Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=develop)](https://travis-ci.org/teja-1010100/emuses/branches)
 
 Emuses is simple session manager for .net core.
 
