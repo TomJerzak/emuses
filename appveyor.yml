@@ -1,5 +1,5 @@
-#environment:
-  #CLI_VERSION: 1.0.4
+environment:
+  CLI_VERSION: 1.0.4
 
 #install:
   #- ps: $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
