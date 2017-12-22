@@ -33,12 +33,12 @@
 
     <div class="row">
         <div class="col-md-12">
-            <span><strong>Time to close session: </strong></span><span id="timeToCloseSession"></span>
+            <span><strong>Time to close session: </strong></span><span id="timeToCloseSession">@Model.Minutes.ToString("00"):@Model.Seconds.ToString("00")</span>
             <input type="hidden" id="minutes" name="minutes" value="@Model.Minutes" />
             <input type="hidden" id="seconds" name="seconds" value="@Model.Seconds" />
         </div>
     </div>
-    
+
     @section scripts {
         <script>
             var interval;
@@ -64,25 +64,17 @@
                             }
                         }
 
-                        var minuteText;
-                        if (minutes > 9) {
-                            minuteText = minutes;
-                        } else {
-                            minuteText = "0" + minutes;
-                        }
-
-                        var secondText;
-                        if (seconds > 9) {
-                            secondText = seconds;
-                        } else {
-                            secondText = "0" + seconds;
-                        }
-
-                        element.innerHTML = minuteText + ':' + secondText;
-
+                        element.innerHTML = format(minutes) + ':' + format(seconds);
                         seconds--;
-                    },
-                        1000);
+                    }, 1000);
+                }
+
+                function format(data) {
+                    if (data > 9) {
+                        return data;
+                    } else {
+                        return "0" + data;
+                    }
                 }
             }
         </script>

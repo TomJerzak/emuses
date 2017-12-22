@@ -61,7 +61,7 @@ namespace Emuses.Example
             {
                 OpenSessionPage = "/Account/Login",
                 SessionExpiredPage = "/Account/Expired",
-                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
+                NoSessionAccessPages = new List<string>() { "/Account/Login", "Account/Logout" },
                 Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
             });*/
 

@@ -10,6 +10,26 @@ See our sample project (Emuses.Example) or use the instructions below.
 
 - Save sessions to PostgreSQL.
   
+Database configuration:
+```SQL
+CREATE USER emuses WITH LOGIN;
+ALTER USER emuses WITH PASSWORD 'emuses';
+  
+CREATE DATABASE emuses WITH OWNER = emuses ENCODING = 'UTF8' TABLESPACE = pg_default CONNECTION LIMIT = -1;
+```
+  
+```SQL  
+CREATE TABLE public.sessions
+(
+  session_id character varying(50) NOT NULL,
+  expiration_date timestamp without time zone NOT NULL,
+  version character varying(50) NOT NULL,
+  session_timeout integer NOT NULL
+) WITH (OIDS = FALSE) TABLESPACE pg_default;
+  
+ALTER TABLE public.sessions OWNER to emuses;
+```
+  
 Startup.cs  
 ```C#
   public void ConfigureServices(IServiceCollection services)
