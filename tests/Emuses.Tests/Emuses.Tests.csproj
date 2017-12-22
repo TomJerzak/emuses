@@ -15,6 +15,6 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Emuses\Emuses.csproj" />
+    <ProjectReference Include="..\..\src\Emuses\Emuses.csproj" />
   </ItemGroup>
 </Project>

@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses", "src\Emuses\Emuses.csproj", "{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "src\Emuses.Tests\Emuses.Tests.csproj", "{C482E75D-290B-44BC-9319-AC2B9440FD86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "tests\Emuses.Tests\Emuses.Tests.csproj", "{C482E75D-290B-44BC-9319-AC2B9440FD86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "src\Emuses.Example\Emuses.Example.csproj", "{9EE40059-0F79-45A1-88FD-B99F0C1E444D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "samples\Emuses.Example\Emuses.Example.csproj", "{9EE40059-0F79-45A1-88FD-B99F0C1E444D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "src\Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{C6D511D5-596A-4B0A-946A-C046A81AA354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "tests\Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{C6D511D5-596A-4B0A-946A-C046A81AA354}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{028D8F88-7F42-4566-BD4C-E345DAF61120}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{65151CF7-A332-4976-8D13-65F03B87F98E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C482E75D-290B-44BC-9319-AC2B9440FD86} = {B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}
+		{9EE40059-0F79-45A1-88FD-B99F0C1E444D} = {65151CF7-A332-4976-8D13-65F03B87F98E}
+		{C6D511D5-596A-4B0A-946A-C046A81AA354} = {B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FA4AB71-3CB8-4DBA-879F-4040FB39BD47}
