@@ -8,5 +8,6 @@ script:
 #- dotnet build /src
 #- dotnet test src/Emuses.Tests/Emuses.Tests.csproj
 - if test "$TRAVIS_OS_NAME" == "linux"; then dotnet restore; fi
-- if test "$TRAVIS_OS_NAME" == "osx"; then dotnet restore --disable-parallel; fi
+#- if test "$TRAVIS_OS_NAME" == "osx"; then dotnet restore --disable-parallel; fi
 - dotnet build -c Release
+- if test "$TRAVIS_OS_NAME" == "linux"; then dotnet test -c Release ./src/Emuses.Tests/Emuses.Tests.csproj; fi
