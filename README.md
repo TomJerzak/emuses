@@ -5,7 +5,7 @@
 
 ## Build status
 
-&nbsp; | `master` | `dev`
+&nbsp; | `master` | `develop`
 --- | --- | --- 
 **Windows** | [![Build status](https://ci.appveyor.com/api/projects/status/w5f9n0klhma23htn/branch/master?svg=true)](https://ci.appveyor.com/project/teja-1010100/emuses/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/w5f9n0klhma23htn/branch/develop?svg=true)](https://ci.appveyor.com/project/teja-1010100/emuses/branch/develop) 
 **Linux / OS X** | [![Travis CI Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=master)](https://travis-ci.org/teja-1010100/emuses/branches) | [![Travis CI Build Status](https://api.travis-ci.org/teja-1010100/emuses.svg?branch=develop)](https://travis-ci.org/teja-1010100/emuses/branches)
