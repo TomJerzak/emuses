@@ -3,25 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses", "src\Emuses\Emuses.csproj", "{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses", "src\Emuses\Emuses.csproj", "{0CFDD7DA-DBAB-435A-9FCF-9CB72A7A5574}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "tests\Emuses.Tests\Emuses.Tests.csproj", "{C482E75D-290B-44BC-9319-AC2B9440FD86}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{70AE2B61-D40A-45A7-A1F1-8370C5CD9ADA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "samples\Emuses.Example\Emuses.Example.csproj", "{9EE40059-0F79-45A1-88FD-B99F0C1E444D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Example", "samples\Emuses.Example\Emuses.Example.csproj", "{E022A1DE-1AC7-412B-8125-78E448D7ACA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "tests\Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{C6D511D5-596A-4B0A-946A-C046A81AA354}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EC6B3852-9E88-4E6A-A897-5F710B05FEE7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{028D8F88-7F42-4566-BD4C-E345DAF61120}"
-	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
-		appveyor.yml = appveyor.yml
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "tests\Emuses.IntegrationTests\Emuses.IntegrationTests.csproj", "{44011640-6FB5-423E-A9BC-7A62B631F720}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{65151CF7-A332-4976-8D13-65F03B87F98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "tests\Emuses.Tests\Emuses.Tests.csproj", "{E7125A30-CDD8-4791-AB06-5CAB5D255D34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,32 +21,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43BD2B62-B1FA-4404-8CAF-2C4E42EDE0B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C482E75D-290B-44BC-9319-AC2B9440FD86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C482E75D-290B-44BC-9319-AC2B9440FD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C482E75D-290B-44BC-9319-AC2B9440FD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C482E75D-290B-44BC-9319-AC2B9440FD86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EE40059-0F79-45A1-88FD-B99F0C1E444D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EE40059-0F79-45A1-88FD-B99F0C1E444D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EE40059-0F79-45A1-88FD-B99F0C1E444D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EE40059-0F79-45A1-88FD-B99F0C1E444D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6D511D5-596A-4B0A-946A-C046A81AA354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6D511D5-596A-4B0A-946A-C046A81AA354}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6D511D5-596A-4B0A-946A-C046A81AA354}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6D511D5-596A-4B0A-946A-C046A81AA354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFDD7DA-DBAB-435A-9FCF-9CB72A7A5574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFDD7DA-DBAB-435A-9FCF-9CB72A7A5574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFDD7DA-DBAB-435A-9FCF-9CB72A7A5574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFDD7DA-DBAB-435A-9FCF-9CB72A7A5574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E022A1DE-1AC7-412B-8125-78E448D7ACA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E022A1DE-1AC7-412B-8125-78E448D7ACA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E022A1DE-1AC7-412B-8125-78E448D7ACA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E022A1DE-1AC7-412B-8125-78E448D7ACA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44011640-6FB5-423E-A9BC-7A62B631F720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44011640-6FB5-423E-A9BC-7A62B631F720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44011640-6FB5-423E-A9BC-7A62B631F720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44011640-6FB5-423E-A9BC-7A62B631F720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7125A30-CDD8-4791-AB06-5CAB5D255D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7125A30-CDD8-4791-AB06-5CAB5D255D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7125A30-CDD8-4791-AB06-5CAB5D255D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7125A30-CDD8-4791-AB06-5CAB5D255D34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C482E75D-290B-44BC-9319-AC2B9440FD86} = {B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}
-		{9EE40059-0F79-45A1-88FD-B99F0C1E444D} = {65151CF7-A332-4976-8D13-65F03B87F98E}
-		{C6D511D5-596A-4B0A-946A-C046A81AA354} = {B3DECD2B-EB46-4C36-86A5-15E3BAA46F17}
+		{E022A1DE-1AC7-412B-8125-78E448D7ACA2} = {70AE2B61-D40A-45A7-A1F1-8370C5CD9ADA}
+		{44011640-6FB5-423E-A9BC-7A62B631F720} = {EC6B3852-9E88-4E6A-A897-5F710B05FEE7}
+		{E7125A30-CDD8-4791-AB06-5CAB5D255D34} = {EC6B3852-9E88-4E6A-A897-5F710B05FEE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0FA4AB71-3CB8-4DBA-879F-4040FB39BD47}
+		SolutionGuid = {1FE34F35-6CAF-4BF3-B5F0-154DE3F32BBD}
 	EndGlobalSection
 EndGlobal
