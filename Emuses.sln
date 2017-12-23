@@ -15,6 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.IntegrationTests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emuses.Tests", "tests\Emuses.Tests\Emuses.Tests.csproj", "{E7125A30-CDD8-4791-AB06-5CAB5D255D34}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C026072E-F376-4EBC-8DD4-F1F62D39FB04}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

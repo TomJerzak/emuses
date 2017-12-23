@@ -37,17 +37,7 @@ namespace Emuses
             _expirationData = expirationData;
             _storage = storage;
         }
-
-        private void Restore(string sessionId)
-        {
-            var session = _storage.GetBySessionId(sessionId);
-            _sessionId = session.GetSessionId();
-            _version = session.GetVersion();
-            _sessionTimeout = session.GetSessionTimeout();
-            _expirationData = session.GetExpirationDate();
-            _storage = session.GetStorage();
-        }
-
+        
         public Session Open()
         {
             _sessionId = Guid.NewGuid().ToString();
@@ -109,16 +99,19 @@ namespace Emuses
         {
             return _version;
         }
-
-        // TODO - metoda do usunięcia po zrezygnowaniu z metody Restore. Metoda Update powinna jednocześnie obsługiwać restore ze storage jak i aktualizować sesję.
-        public ISessionStorage GetStorage()
-        {
-            return _storage;
-        }
-
+        
         private static string GenerateVersion()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        private void Restore(string sessionId)
+        {
+            var session = _storage.GetBySessionId(sessionId);
+            _sessionId = session.GetSessionId();
+            _version = session.GetVersion();
+            _sessionTimeout = session.GetSessionTimeout();
+            _expirationData = session.GetExpirationDate();
         }
     }
 }
