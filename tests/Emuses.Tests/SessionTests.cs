@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Emuses.Tests
 {
-    public class SessionTests /* : IDisposable*/
+    public class SessionTests
     {
         private readonly Mock<ISessionStorage> _storage;
 
@@ -14,14 +14,11 @@ namespace Emuses.Tests
         {
             _storage = new Mock<ISessionStorage>();
         }
-
-        /*public void Dispose() { }*/
-
+        
         [Fact]
         public void open_new_session()
         {
             var session = new Session(30, _storage.Object).Open();
-            //_storage.Setup(x => x.Create(session)).Returns(session);
 
             session.GetSessionId().Should().NotBeNullOrEmpty();
             session.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
@@ -30,14 +27,12 @@ namespace Emuses.Tests
         [Fact]
         public void update_session()
         {
-            var session = new Session(1, _storage.Object).Open();
-            // var initExpiredDate = session.GetExpirationDate();
+            var session = new Session(10, _storage.Object).Open();
             var sessionVersion = session.GetVersion();
             _storage.Setup(x => x.GetBySessionId(session.GetSessionId())).Returns(session);
 
             var sessionUpdated = session.Update(session.GetSessionId());
 
-            // initExpiredDate.Should().NotBe(sessionUpdated.GetExpirationDate());
             sessionUpdated.GetVersion().Should().NotBe(sessionVersion);
         }
 

@@ -11,7 +11,7 @@ namespace Emuses
         private string _version;
         private int _sessionTimeout;
         private DateTime _expirationData;
-        private ISessionStorage _storage;
+        private readonly ISessionStorage _storage;
 
         private Session()
         {

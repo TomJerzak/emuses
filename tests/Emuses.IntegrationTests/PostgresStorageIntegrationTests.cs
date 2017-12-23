@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Emuses.Exceptions;
 using Emuses.Storages;
 using FluentAssertions;
@@ -20,7 +21,7 @@ namespace Emuses.IntegrationTests
             sessionCreated.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(55));
             entitySelected.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(55));
             entitySelected.GetSessionId().Should().Be(sessionCreated.GetSessionId());
-            // entitySelected.GetExpirationDate().Should().Be(sessionCreated.GetExpirationDate());
+            entitySelected.GetExpirationDate().ToString(CultureInfo.InvariantCulture).Should().Be(sessionCreated.GetExpirationDate().ToString(CultureInfo.InvariantCulture));
             entitySelected.GetVersion().Should().Be(sessionCreated.GetVersion());
             entitySelected.GetSessionTimeout().Should().Be(sessionCreated.GetSessionTimeout());
         }

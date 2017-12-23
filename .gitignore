@@ -289,3 +289,6 @@ __pycache__/
 
 # SonarCube
 .sonarcube/
+
+# Coverity Scan
+cov-int/
