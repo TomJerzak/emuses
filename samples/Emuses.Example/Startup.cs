@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Emuses.Dashboard;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +57,8 @@ namespace Emuses.Example
                 NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
                 Storage = new FileStorage(@"C:\Temp\Emuses\")
             });
+
+            app.UseEmusesDashboard();
 
             /*app.UseEmuses(new EmusesConfiguration()
             {
