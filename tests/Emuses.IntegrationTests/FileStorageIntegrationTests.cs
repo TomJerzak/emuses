@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Emuses.Storages;
 using FluentAssertions;
 using Xunit;
@@ -24,7 +25,7 @@ namespace Emuses.IntegrationTests
         [Fact]
         public void restore_saved_session()
         {
-            var sessionCreated = CreateSession(out var sessionIdLine);
+            var sessionCreated = CreateSession(out var _);
             ISessionStorage storage = new FileStorage(DirectoryPath + "\\");
 
             var sessionById = storage.GetBySessionId(sessionCreated.GetSessionId());
@@ -54,6 +55,17 @@ namespace Emuses.IntegrationTests
             sessionCreated.Close();
 
             File.Exists($"{DirectoryPath}\\{sessionCreated.GetSessionId()}.ses").Should().BeFalse();
+        }
+
+        [Fact]
+        public void get_all_sessions_from_db()
+        {
+            CreateSession(out var _);
+            CreateSession(out var _);
+
+            ISessionStorage storage = new FileStorage(DirectoryPath + "\\");
+
+            storage.GetAll().Count().Should().BeGreaterThan(1);
         }
 
         private static Session CreateSession(out string sessionIdLine)

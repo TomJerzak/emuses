@@ -13,10 +13,6 @@ namespace Emuses.Storages
 
         private readonly string _directoryPath;
 
-        private FileStorage()
-        {
-        }
-
         public FileStorage(string directoryPath)
         {
             _directoryPath = directoryPath;
@@ -24,7 +20,23 @@ namespace Emuses.Storages
 
         public IEnumerable<Session> GetAll()
         {
-            throw new NotImplementedException();
+            var sessions = new List<Session>();
+            foreach (var file in Directory.EnumerateFiles(_directoryPath))
+            {
+                var fileStream = new FileStream(file, FileMode.Open);
+            
+                using (var reader = new StreamReader(fileStream))
+                {
+                    var sessionIdFromFile = reader.ReadLine().Substring(SessionId.Length);
+                    var versionFromFile = reader.ReadLine().Substring(Version.Length);
+                    var sessionTimeoutFromFile = int.Parse(reader.ReadLine().Substring(SessionTimeout.Length));
+                    var expirationDateFromFile = DateTime.Parse(reader.ReadLine().Substring(ExpirationDate.Length));
+
+                    sessions.Add(new Session(sessionIdFromFile, versionFromFile, sessionTimeoutFromFile, expirationDateFromFile, this));
+                }
+            }
+            
+            return sessions;
         }
 
         public Session GetBySessionId(string sessionId)

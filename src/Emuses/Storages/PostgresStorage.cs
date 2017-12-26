@@ -8,10 +8,6 @@ namespace Emuses.Storages
     {
         private readonly string _connectionString;
 
-        private PostgresStorage()
-        {
-        }
-
         public PostgresStorage(string connectionString)
         {
             _connectionString = connectionString;
