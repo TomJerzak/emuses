@@ -58,7 +58,11 @@ namespace Emuses.Example
                 Storage = new FileStorage(@"C:\Temp\Emuses\")
             });
 
-            app.UseEmusesDashboard();
+            app.UseEmusesDashboard(options =>
+            {
+                //options.RoutePrefix = "test";
+                //options.DocumentTitle("Test");
+            });
 
             /*app.UseEmuses(new EmusesConfiguration()
             {

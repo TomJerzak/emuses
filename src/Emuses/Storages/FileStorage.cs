@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Emuses.Storages
@@ -19,6 +20,11 @@ namespace Emuses.Storages
         public FileStorage(string directoryPath)
         {
             _directoryPath = directoryPath;
+        }
+
+        public IEnumerable<Session> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public Session GetBySessionId(string sessionId)

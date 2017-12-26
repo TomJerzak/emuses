@@ -1,4 +1,5 @@
-﻿using Emuses.Exceptions;
+﻿using System.Collections.Generic;
+using Emuses.Exceptions;
 using Npgsql;
 
 namespace Emuses.Storages
@@ -14,6 +15,11 @@ namespace Emuses.Storages
         public PostgresStorage(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public IEnumerable<Session> GetAll()
+        {
+            throw new System.NotImplementedException();
         }
 
         public Session GetBySessionId(string sessionId)
