@@ -19,7 +19,28 @@ namespace Emuses.Storages
 
         public IEnumerable<Session> GetAll()
         {
-            throw new System.NotImplementedException();
+            var sessions = new List<Session>();
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand("SELECT session_id, version, session_timeout, expiration_date FROM sessions", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var sessionIdFromDb = reader.GetString(0);
+                            var versionFromDb = reader.GetString(1);
+                            var sessionTimeoutFromDb = reader.GetInt32(2);
+                            var expirationDateFromDb = reader.GetDateTime(3);
+
+                            sessions.Add(new Session(sessionIdFromDb, versionFromDb, sessionTimeoutFromDb, expirationDateFromDb, this));
+                        }
+                    }
+                }
+            }
+
+            return sessions;
         }
 
         public Session GetBySessionId(string sessionId)

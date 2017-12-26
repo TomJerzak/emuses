@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using Emuses.Exceptions;
 using Emuses.Storages;
 using FluentAssertions;
@@ -56,6 +57,16 @@ namespace Emuses.IntegrationTests
             var exception = Record.Exception(() => sessionCreated.Close());
             exception.Should().NotBeNull();
             exception.Should().BeAssignableTo<PostgresStorageDeleteException>();
+        }
+
+        [Fact]
+        public void get_all_sessions_from_db()
+        {
+            ISessionStorage storage = new PostgresStorage(ConnectionString);
+            CreateSession(out var _);
+            CreateSession(out var _);
+
+            storage.GetAll().Count().Should().BeGreaterThan(1);
         }
 
         private static Session UpdateSession(Session session)
