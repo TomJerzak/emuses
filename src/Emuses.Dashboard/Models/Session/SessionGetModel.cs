@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Emuses.Dashboard.Models
+namespace Emuses.Dashboard.Models.Session
 {
     public class SessionGetModel
     {

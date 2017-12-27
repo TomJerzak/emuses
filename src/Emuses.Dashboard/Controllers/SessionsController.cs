@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Emuses.Dashboard.Models;
+using Emuses.Dashboard.Models.Session;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Dashboard.Controllers

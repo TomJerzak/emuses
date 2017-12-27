@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Emuses.Dashboard;
+using Emuses.Example.Controllers;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 namespace Emuses.Example
@@ -32,7 +35,13 @@ namespace Emuses.Example
 
             services
                 .AddMvc()
-                .AddApplicationPart(Assembly.Load(new AssemblyName("Emuses.Dashboard")));
+                //.AddApplicationPart(Assembly.Load(new AssemblyName("Emuses.Dashboard")));
+                .AddApplicationPart(typeof(SessionController).GetTypeInfo().Assembly);
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(SessionController).GetTypeInfo().Assembly));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

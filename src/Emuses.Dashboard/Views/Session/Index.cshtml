@@ -1,0 +1,17 @@
+﻿@model Emuses.Dashboard.Models.Session.SessionGetModel
+@{
+    ViewData["Title"] = "Sessions";
+}
+
+<h2>Sessions</h2>
+
+<table class="table table-striped">
+    <thead>
+    <th>session id</th>
+    <th>version</th>
+    </thead>
+    <tbody>
+    <th>@Model.SessionId</th>
+    <td>@Model.Version</td>
+    </tbody>
+</table>
