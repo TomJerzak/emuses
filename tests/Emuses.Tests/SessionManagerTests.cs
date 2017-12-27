@@ -19,7 +19,7 @@ namespace Emuses.Tests
         public void return_all_sessions()
         {
             var manger = new SessionManager(_storage.Object);
-            IEnumerable<Session> sessions = new List<Session>()
+            var sessions = new List<Session>
             {
                 new Session("1", "1", 1, DateTime.Now, _storage.Object),
                 new Session("2", "1", 1, DateTime.Now, _storage.Object)

@@ -18,7 +18,7 @@ namespace Emuses.Storages
             _directoryPath = directoryPath;
         }
 
-        public IEnumerable<Session> GetAll()
+        public List<Session> GetAll()
         {
             var sessions = new List<Session>();
             foreach (var file in Directory.EnumerateFiles(_directoryPath))

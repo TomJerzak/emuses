@@ -11,7 +11,7 @@ namespace Emuses
             _sessionStorage = sessionStorage;
         }
 
-        public IEnumerable<Session> GetAll()
+        public List<Session> GetAll()
         {
             return _sessionStorage.GetAll();
         }

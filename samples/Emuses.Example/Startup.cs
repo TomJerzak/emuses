@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Emuses.Dashboard;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
@@ -29,7 +30,9 @@ namespace Emuses.Example
             services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
             // services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddApplicationPart(Assembly.Load(new AssemblyName("Emuses.Dashboard")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
