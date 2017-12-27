@@ -4,8 +4,8 @@ namespace Emuses
 {
     public interface ISessionStorage
     {
-        List<Session> GetAll();
-        
+        IEnumerable<Session> GetAll();
+
         Session GetBySessionId(string sessionId);
 
         Session Create(Session session);

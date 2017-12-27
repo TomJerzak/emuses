@@ -2,7 +2,7 @@
 
 namespace Emuses.Dashboard.Models.Session
 {
-    public class SessionGetModel
+    public class SessionModel
     {
         public string SessionId { get; set; }
 
@@ -12,11 +12,11 @@ namespace Emuses.Dashboard.Models.Session
 
         public DateTime ExpirationDate { get; set; }
 
-        public SessionGetModel()
+        public SessionModel()
         {
         }
 
-        public SessionGetModel(string sessionId, string version, int sessionTimeout, DateTime expirationDate)
+        public SessionModel(string sessionId, string version, int sessionTimeout, DateTime expirationDate)
         {
             SessionId = sessionId;
             Version = version;

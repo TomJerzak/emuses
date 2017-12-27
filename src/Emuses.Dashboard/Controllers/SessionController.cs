@@ -19,13 +19,13 @@ namespace Emuses.Example.Controllers
             if (!result.Any())
                 return NotFound();
 
-            var sessions = result.Select(item => new SessionGetModel(
+            var sessions = result.Select(item => new SessionModel(
                 item.GetSessionId(),
                 item.GetVersion(),
                 item.GetSessionTimeout(),
                 item.GetExpirationDate()));
 
-            return View(sessions.ToArray()[0]);
+            return View(sessions);
         }
     }
 }

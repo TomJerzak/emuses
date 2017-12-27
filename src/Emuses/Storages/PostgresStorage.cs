@@ -13,7 +13,7 @@ namespace Emuses.Storages
             _connectionString = connectionString;
         }
 
-        public List<Session> GetAll()
+        public IEnumerable<Session> GetAll()
         {
             var sessions = new List<Session>();
             using (var connection = new NpgsqlConnection(_connectionString))

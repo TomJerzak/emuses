@@ -1,17 +1,41 @@
-﻿@model Emuses.Dashboard.Models.Session.SessionGetModel
+﻿@using System.Collections.Generic
+@using Emuses.Dashboard.Models.Session
+
+@model IEnumerable<SessionModel>
 @{
     ViewData["Title"] = "Sessions";
 }
 
 <h2>Sessions</h2>
 
+<div class="form-group row">
+    <button class="btn btn-link" disabled>Create</button>
+</div>
+
 <table class="table table-striped">
     <thead>
-    <th>session id</th>
-    <th>version</th>
+    <tr>
+        <th>session id</th>
+        <th>version</th>
+        <th>session timeout</th>
+        <th>expiration date</th>
+        <th>action</th>
+    </tr>
     </thead>
     <tbody>
-    <th>@Model.SessionId</th>
-    <td>@Model.Version</td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.SessionId</td>
+            <td>@item.Version</td>
+            <td>@item.SessionTimeout</td>
+            <td>@item.ExpirationDate</td>
+            <td>
+                <!--<button class="btn btn-primary">Details</button>-->
+                <button class="btn btn-link" disabled>Edit</button>
+                <button class="btn btn-link" disabled>Delete</button>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

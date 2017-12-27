@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Emuses.Storages
 {
@@ -18,7 +19,7 @@ namespace Emuses.Storages
             _directoryPath = directoryPath;
         }
 
-        public List<Session> GetAll()
+        public IEnumerable<Session> GetAll()
         {
             var sessions = new List<Session>();
             foreach (var file in Directory.EnumerateFiles(_directoryPath))
