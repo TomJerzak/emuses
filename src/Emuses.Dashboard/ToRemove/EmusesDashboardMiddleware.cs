@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace Emuses.Dashboard
 {
-    public class EmusesDashboardMiddleware
+    public class EmusesDashboardMiddlewareToRemove
     {
-        private readonly RequestDelegate _next;
+        /*private readonly RequestDelegate _next;
         private readonly EmusesDashboardOptions _options;
 
-        public EmusesDashboardMiddleware(RequestDelegate next, EmusesDashboardOptions options)
+        public EmusesDashboardMiddlewareToRemove(RequestDelegate next, EmusesDashboardOptions options)
         {
             _next = next;
             _options = options;
@@ -47,6 +47,6 @@ namespace Emuses.Dashboard
 
                 await response.WriteAsync(htmlBuilder.ToString(), Encoding.UTF8);
             }
-        }
+        }*/
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Emuses.Dashboard;
 using Emuses.Example.Controllers;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
@@ -68,12 +67,6 @@ namespace Emuses.Example
                 SessionExpiredPage = "/Account/Expired",
                 NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
                 Storage = new FileStorage(@"C:\Temp\Emuses\")
-            });
-
-            app.UseEmusesDashboard(options =>
-            {
-                //options.RoutePrefix = "test";
-                //options.DocumentTitle("Test");
             });
 
             /*app.UseEmuses(new EmusesConfiguration()

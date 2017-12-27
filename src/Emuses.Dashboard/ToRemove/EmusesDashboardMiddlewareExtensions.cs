@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Builder;
 
 namespace Emuses.Dashboard
 {
-    public static class EmusesDashboardMiddlewareExtensions
+    public static class EmusesDashboardMiddlewareExtensionsToRemove
     {
-        private const string EmbeddedFilesNamespace = "Emuses.Dashboard.bower_components.emuses_dashboard.dist";
+        /*private const string EmbeddedFilesNamespace = "Emuses.Dashboard.bower_components.emuses_dashboard.dist";
         
         public static IApplicationBuilder UseEmusesDashboard(this IApplicationBuilder builder, Action<EmusesDashboardOptions> setupAction)
         {
@@ -23,6 +23,6 @@ namespace Emuses.Dashboard
             });
 
             return builder;
-        }
+        }*/
     }
 }

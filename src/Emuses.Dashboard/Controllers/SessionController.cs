@@ -1,4 +1,5 @@
-﻿using Emuses.Dashboard.Models.Session;
+﻿using System.Linq;
+using Emuses.Dashboard.Models.Session;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Emuses.Example.Controllers
@@ -14,12 +15,17 @@ namespace Emuses.Example.Controllers
 
         public IActionResult Index()
         {
-            var session = _storage.GetAll().ToArray()[0];
-            var model = new SessionGetModel(session.GetSessionId(), session.GetVersion(), session.GetSessionTimeout(), session.GetExpirationDate());
-            /*Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
-            
-            return sessionId != null ? View(new SessionModel(_storage.GetBySessionId(sessionId))) : View();*/
-            return View(model);
+            var result = _storage.GetAll();
+            if (!result.Any())
+                return NotFound();
+
+            var sessions = result.Select(item => new SessionGetModel(
+                item.GetSessionId(),
+                item.GetVersion(),
+                item.GetSessionTimeout(),
+                item.GetExpirationDate()));
+
+            return View(sessions.ToArray()[0]);
         }
     }
 }
