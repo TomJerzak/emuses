@@ -33,7 +33,9 @@
             <td>
                 <!--<button class="btn btn-primary">Details</button>-->
                 <button class="btn btn-link" disabled>Edit</button>
-                <button class="btn btn-link" disabled>Delete</button>
+                <form asp-controller="Session" asp-action="Delete" asp-route-id=@item.SessionId>
+                <button type="submit" class="btn btn-link">Delete</button>
+                </form>
             </td>
         </tr>
     }

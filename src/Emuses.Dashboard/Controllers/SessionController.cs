@@ -13,6 +13,7 @@ namespace Emuses.Example.Controllers
             _storage = storage;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var result = _storage.GetAll();
@@ -26,6 +27,15 @@ namespace Emuses.Example.Controllers
                 item.GetExpirationDate()));
 
             return View(sessions);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(string id)
+        {
+            _storage.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
