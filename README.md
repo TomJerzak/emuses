@@ -25,7 +25,9 @@ PM> Install-Package Emuses
 
 See our sample project (Emuses.Example) or use the instructions below.
 
-- Save sessions to PostgreSQL.
+#### 1. Storage
+
+##### 1.1 Save sessions to PostgreSQL.
   
 Database configuration:
 ```SQL
@@ -75,7 +77,7 @@ Startup.cs
   }
 ```
     
-- Save sessions to files.
+##### 1.2 Save sessions to files.
   
 Startup.cs  
 ```csharp
@@ -105,3 +107,22 @@ Startup.cs
     ...
   }
 ```
+  
+#### 2. Dashboard
+  
+Startup.cs
+```csharp
+  public void ConfigureServices(IServiceCollection services)
+  {
+    ...
+    services
+      .AddMvc()
+      .AddApplicationPart(typeof(SessionController).GetTypeInfo().Assembly);
+
+    services.Configure<RazorViewEngineOptions>(options =>
+    {
+      options.FileProviders.Add(new EmbeddedFileProvider(typeof(SessionController).GetTypeInfo().Assembly));
+    });
+  }
+```
+  
