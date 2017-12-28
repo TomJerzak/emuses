@@ -2,7 +2,7 @@
 
 namespace Emuses
 {
-    public class EmusesConfiguration
+    public class EmusesOptions
     {
         public string OpenSessionPage { get; set; }
 

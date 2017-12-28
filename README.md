@@ -43,7 +43,6 @@ CREATE TABLE public.sessions
   version character varying(50) NOT NULL,
   session_timeout integer NOT NULL
 ) WITH (OIDS = FALSE) TABLESPACE pg_default;
-  
 ALTER TABLE public.sessions OWNER to emuses;
 ```
   
@@ -63,12 +62,12 @@ Startup.cs
   public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
   {
     ...
-    app.UseEmuses(new EmusesConfiguration()
+    app.UseEmuses(options =>
     {
-      OpenSessionPage = "/Account/Login",
-      SessionExpiredPage = "/Account/Expired",
-      NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
-      Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
+      options.OpenSessionPage = "/Account/Login";
+      options.SessionExpiredPage = "/Account/Expired";
+      options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
+      options.Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses");
     });
 
     app.UseMvc(routes => ...
@@ -94,12 +93,12 @@ Startup.cs
   public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
   {
     ...
-    app.UseEmuses(new EmusesConfiguration()
+    app.UseEmuses(options =>
     {
-      OpenSessionPage = "/Account/Login",
-      SessionExpiredPage = "/Account/Expired",
-      NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
-      Storage = new FileStorage(@"C:\Temp\Emuses\")
+      options.OpenSessionPage = "/Account/Login";
+      options.SessionExpiredPage = "/Account/Expired";
+      options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
+      options.Storage = new FileStorage(@"C:\Temp\Emuses\");
     });
 
     app.UseMvc(routes => ...

@@ -9,13 +9,13 @@ namespace Emuses
     public class EmusesMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly EmusesConfiguration _configuration;
+        private readonly EmusesOptions _configuration;
 
         private EmusesMiddleware()
         {
         }
 
-        public EmusesMiddleware(RequestDelegate next, EmusesConfiguration emusesConfiguration)
+        public EmusesMiddleware(RequestDelegate next, EmusesOptions emusesConfiguration)
         {
             _configuration = emusesConfiguration;
             if (_configuration.NoSessionAccessPages == null)

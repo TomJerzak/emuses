@@ -61,22 +61,22 @@ namespace Emuses.Example
 
             app.UseStaticFiles();
 
-            app.UseEmuses(new EmusesConfiguration
+            app.UseEmuses(options =>
             {
-                OpenSessionPage = "/Account/Login",
-                SessionExpiredPage = "/Account/Expired",
-                NoSessionAccessPages = new List<string>() {"/Account/Login", "Account/Logout"},
-                Storage = new FileStorage(@"C:\Temp\Emuses\")
+                options.OpenSessionPage = "/Account/Login";
+                options.SessionExpiredPage = "/Account/Expired";
+                options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
+                options.Storage = new FileStorage(@"C:\Temp\Emuses\");
             });
 
-            /*app.UseEmuses(new EmusesConfiguration()
+            /* app.UseEmuses(options =>
             {
-                OpenSessionPage = "/Account/Login",
-                SessionExpiredPage = "/Account/Expired",
-                NoSessionAccessPages = new List<string>() { "/Account/Login", "Account/Logout" },
-                Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses")
+                options.OpenSessionPage = "/Account/Login";
+                options.SessionExpiredPage = "/Account/Expired";
+                options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
+                options.Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses");
             });*/
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
