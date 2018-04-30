@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Emuses.Dashboard.Controllers;
 using Emuses.Example.Controllers;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;

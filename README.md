@@ -1,6 +1,6 @@
 # emuses
 
-[![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses) [![Coverity Scan Build Status](https://scan.coverity.com/projects/14686/badge.svg)](https://scan.coverity.com/projects/teja-1010100-emuses) [![SonarCloud Scan Build Status](https://sonarcloud.io/api/badges/gate?key=Emuses)](https://sonarcloud.io/api/badges/gate?key=Emuses)
+[![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses) [![SonarCloud Scan Build Status](https://sonarcloud.io/api/badges/gate?key=Emuses)](https://sonarcloud.io/api/badges/gate?key=Emuses)
   
 ## Build status
 
@@ -53,7 +53,7 @@ Startup.cs
   public void ConfigureServices(IServiceCollection services)
   {
     ...
-    services.AddScoped<IStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
+    services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
     services.AddMvc();
     ...
@@ -84,7 +84,7 @@ Startup.cs
   public void ConfigureServices(IServiceCollection services)
   {
     ...
-    services.AddScoped<IStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
+    services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
 
     services.AddMvc();
     ...

@@ -2,7 +2,7 @@
 using Emuses.Dashboard.Models.Session;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Emuses.Example.Controllers
+namespace Emuses.Dashboard.Controllers
 {
     public class SessionController : Controller
     {

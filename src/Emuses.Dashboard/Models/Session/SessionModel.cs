@@ -12,10 +12,8 @@ namespace Emuses.Dashboard.Models.Session
 
         public DateTime ExpirationDate { get; set; }
 
-        public SessionModel()
-        {
-        }
-
+        public SessionModel() { }
+        
         public SessionModel(string sessionId, string version, int sessionTimeout, DateTime expirationDate)
         {
             SessionId = sessionId;
