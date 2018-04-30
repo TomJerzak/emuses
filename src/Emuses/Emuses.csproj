@@ -10,6 +10,7 @@
     <FileVersion>1.0.5.0</FileVersion>
     <Version>1.0.5</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Emuses is simple session manager for .net core.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
