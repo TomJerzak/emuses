@@ -9,7 +9,7 @@ namespace Emuses.Example.Controllers
 
         public AccountController(ISessionStorage storage)
         {
-            _session = new Session(2, storage);
+            _session = new Session(1, storage);
         }
 
         public IActionResult Login()
