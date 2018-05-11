@@ -64,6 +64,7 @@ namespace Emuses.Example
 
             app.UseEmuses(options =>
             {
+                options.LoginPage = "/Account/Login";
                 options.OpenSessionPage = "/Account/Login";
                 options.SessionExpiredPage = "/Account/Expired";
                 options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};

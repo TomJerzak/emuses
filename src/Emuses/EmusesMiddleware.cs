@@ -11,21 +11,21 @@ namespace Emuses
     {
         private const string NoCache = "no-cache";
         private const string SessionCookieName = "Emuses.Session";
+        private const string LoginPage = "/Account/Login";
 
         private readonly RequestDelegate _next;
         private readonly EmusesOptions _configuration;
 
-        private EmusesMiddleware()
-        {
-        }
-
         public EmusesMiddleware(RequestDelegate next, EmusesOptions emusesConfiguration)
         {
             _configuration = emusesConfiguration;
+
             if (_configuration.NoSessionAccessPages == null)
                 _configuration.NoSessionAccessPages = new List<string>();
-
             _configuration.NoSessionAccessPages.Add(_configuration.SessionExpiredPage);
+
+            if (_configuration.LoginPage == null)
+                _configuration.LoginPage = LoginPage;
 
             _next = next;
         }
@@ -33,7 +33,7 @@ namespace Emuses
         public Task Invoke(HttpContext context)
         {
             AddNoCacheHeader(context);
-            
+
             if (IsAnonymousAccessPath(context.Request.Path.Value))
                 return _next(context);
 
@@ -42,19 +42,20 @@ namespace Emuses
             return string.IsNullOrEmpty(sessionId) ? RedirectToSignIn(context) : UpdateSession(context, sessionId);
         }
 
-        private void AddNoCacheHeader(HttpContext context)
+        private static void AddNoCacheHeader(HttpContext context)
         {
             context.Response.Headers[HeaderNames.CacheControl] = NoCache;
         }
 
         private bool IsAnonymousAccessPath(string path)
         {
-            return _configuration.NoSessionAccessPages.Any(anonymousPath => path.ToLower().Contains(anonymousPath.ToLower()));
+            return _configuration.NoSessionAccessPages.Any(anonymousPath =>
+                path.ToLower().Contains(anonymousPath.ToLower()));
         }
 
         private Task RedirectToSignIn(HttpContext context)
         {
-            context.Response.Redirect("/Account/Login", true);
+            context.Response.Redirect(_configuration.LoginPage, true);
             return _next(context);
         }
 
@@ -63,7 +64,6 @@ namespace Emuses
             try
             {
                 var session = _configuration.Storage.GetBySessionId(sessionId);
-
                 session.Update(sessionId);
 
                 return _next(context);

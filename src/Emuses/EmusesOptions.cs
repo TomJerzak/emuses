@@ -8,6 +8,8 @@ namespace Emuses
 
         public string SessionExpiredPage { get; set; }
 
+        public string LoginPage { get; set; }
+
         public List<string> NoSessionAccessPages { get; set; }
 
         public ISessionStorage Storage { get; set; }
