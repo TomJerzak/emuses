@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/teja-1010100/emuses</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/teja-1010100/emuses/blob/master/LICENSE</PackageLicenseUrl>
     <Authors>Tomasz Jerzak</Authors>
     <PackageTags>.net core, session</PackageTags>
     <Company />
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
-    <FileVersion>1.0.5.0</FileVersion>
-    <Version>1.0.5</Version>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
+    <Version>2.0.1</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Emuses is simple session manager for .net core.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.0.3" />
     <PackageReference Include="Npgsql" Version="3.2.6" />
   </ItemGroup>
 </Project>
