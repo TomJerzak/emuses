@@ -14,7 +14,7 @@ namespace Emuses.Example.Controllers
 
         public IActionResult Index()
         {
-            Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
+            Request.Cookies.TryGetValue("Emuses.Session", out var sessionId);
             
             return sessionId != null ? View(new SessionModel(_storage.GetBySessionId(sessionId))) : View();
         }

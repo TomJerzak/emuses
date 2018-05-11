@@ -3,11 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Emuses.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 namespace Emuses
 {
     public class EmusesMiddleware
     {
+        private const string NoCache = "no-cache";
+        private const string SessionCookieName = "Emuses.Session";
+
         private readonly RequestDelegate _next;
         private readonly EmusesOptions _configuration;
 
@@ -28,12 +32,19 @@ namespace Emuses
 
         public Task Invoke(HttpContext context)
         {
+            AddNoCacheHeader(context);
+            
             if (IsAnonymousAccessPath(context.Request.Path.Value))
                 return _next(context);
 
-            context.Request.Cookies.TryGetValue("Emuses.SessionId", out var sessionId);
+            context.Request.Cookies.TryGetValue(SessionCookieName, out var sessionId);
 
             return string.IsNullOrEmpty(sessionId) ? RedirectToSignIn(context) : UpdateSession(context, sessionId);
+        }
+
+        private void AddNoCacheHeader(HttpContext context)
+        {
+            context.Response.Headers[HeaderNames.CacheControl] = NoCache;
         }
 
         private bool IsAnonymousAccessPath(string path)

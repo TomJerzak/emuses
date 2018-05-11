@@ -22,7 +22,7 @@ namespace Emuses.Example.Controllers
         public IActionResult Login(string model)
         {
             _session.Open();
-            Response.Cookies.Append("Emuses.SessionId", _session.GetSessionId(), new CookieOptions
+            Response.Cookies.Append("Emuses.Session", _session.GetSessionId(), new CookieOptions
             {
                 HttpOnly = true
                 // Secure = true
