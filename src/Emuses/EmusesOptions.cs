@@ -13,5 +13,7 @@ namespace Emuses
         public List<string> NoSessionAccessPages { get; set; }
 
         public ISessionStorage Storage { get; set; }
+
+        public bool Logger { get; set; }
     }
 }

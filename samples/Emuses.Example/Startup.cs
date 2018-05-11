@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Emuses.Dashboard.Controllers;
-using Emuses.Example.Controllers;
 using Emuses.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,7 +63,8 @@ namespace Emuses.Example
 
             app.UseEmuses(options =>
             {
-                options.LoginPage = "/Account/Login";
+                // options.LoginPage = "/Account/Login";
+                // options.Logger = true;
                 options.OpenSessionPage = "/Account/Login";
                 options.SessionExpiredPage = "/Account/Expired";
                 options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};

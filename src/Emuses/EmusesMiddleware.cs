@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Emuses.Exceptions;
+using Emuses.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 
@@ -32,6 +33,9 @@ namespace Emuses
 
         public Task Invoke(HttpContext context)
         {
+            if (_configuration.Logger)
+                new LoggerService(nameof(EmusesMiddleware)).PrintLog("Invoke " + context.Request.Path);
+
             AddNoCacheHeader(context);
 
             if (IsAnonymousAccessPath(context.Request.Path.Value))
