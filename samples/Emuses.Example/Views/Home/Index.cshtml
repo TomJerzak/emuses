@@ -53,8 +53,11 @@
                     interval = setInterval(function () {
                         var element = document.getElementById(output);
 
-                        if (seconds === 0) {
-                            if (minutes === 0) {
+                        console.log(minutes);
+                        console.log(seconds);
+
+                        if (seconds == 0) {
+                            if (minutes == 0) {
                                 element.innerHTML = "Session closed!";
                                 clearInterval(interval);
                                 return;
