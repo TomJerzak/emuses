@@ -13,7 +13,7 @@ namespace Emuses
         private const string NoCache = "no-cache";
         private const string SessionCookieName = "Emuses.Session";
         private const string LoginPage = "/Account/Login";
-
+        private const string InvokeMethod = "Invoke ";
         private readonly RequestDelegate _next;
         private readonly EmusesOptions _configuration;
 
@@ -34,9 +34,10 @@ namespace Emuses
         public Task Invoke(HttpContext context)
         {
             if (_configuration.Logger)
-                new LoggerService(nameof(EmusesMiddleware)).PrintLog("Invoke " + context.Request.Path);
+                new LoggerService(nameof(EmusesMiddleware)).PrintLog(InvokeMethod + context.Request.Path);
 
-            AddNoCacheHeader(context);
+            if (!_configuration.DisableNoCache)
+                AddNoCacheHeader(context);
 
             if (IsAnonymousAccessPath(context.Request.Path.Value))
                 return _next(context);

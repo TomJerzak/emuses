@@ -16,7 +16,7 @@ namespace Emuses.Tests
             loggerService.PrintLog("Test...").Text.Should().Be("Test...");
             loggerService.PrintLog("Test...").Created.Should().BeCloseTo(DateTime.Now);
             loggerService.PrintLog("Test...").Head.Should().Be("=== ComponentName ====================================================");
-            loggerService.PrintLog("Test...").Value.Should().Contain("Test..").And.Contain(DateTime.Now.Year.ToString());
+            loggerService.PrintLog("Test...").Value.Should().Contain("Test..").And.Contain(":");
         }
     }
 }

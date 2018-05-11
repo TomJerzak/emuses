@@ -15,5 +15,7 @@ namespace Emuses
         public ISessionStorage Storage { get; set; }
 
         public bool Logger { get; set; }
+
+        public bool DisableNoCache { get; set; }
     }
 }
