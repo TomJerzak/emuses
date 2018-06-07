@@ -2,13 +2,16 @@
 using System.Reflection;
 using Emuses.Dashboard.Controllers;
 using Emuses.Storages;
+using Emuses.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Emuses.Example
 {
@@ -29,6 +32,7 @@ namespace Emuses.Example
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHostedService, SessionClearTask>();
             services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
             // services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
@@ -67,7 +71,7 @@ namespace Emuses.Example
                 // options.Logger = true;
                 options.OpenSessionPage = "/Account/Login";
                 options.SessionExpiredPage = "/Account/Expired";
-                options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
+                options.NoSessionAccessPages = new List<string> { "/Account/Login", "Account/Logout" };
                 options.Storage = new FileStorage(@"C:\Temp\Emuses\");
             });
 
@@ -78,7 +82,7 @@ namespace Emuses.Example
                 options.NoSessionAccessPages = new List<string> {"/Account/Login", "Account/Logout"};
                 options.Storage = new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses");
             });*/
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

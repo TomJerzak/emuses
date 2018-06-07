@@ -53,6 +53,7 @@ Startup.cs
   public void ConfigureServices(IServiceCollection services)
   {
     ...
+    services.AddSingleton<IHostedService, SessionClearTask>();
     services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
     services.AddMvc();
@@ -84,6 +85,7 @@ Startup.cs
   public void ConfigureServices(IServiceCollection services)
   {
     ...
+    services.AddSingleton<IHostedService, SessionClearTask>();
     services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
 
     services.AddMvc();
