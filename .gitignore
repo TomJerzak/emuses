@@ -292,3 +292,6 @@ __pycache__/
 
 # Coverity Scan
 cov-int/
+
+# Visual Studio Code
+.vscode
