@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Emuses.Exceptions;
 using Emuses.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
 
 namespace Emuses
 {
     public class EmusesMiddleware
     {
+        private const string CacheControl = "Cache-Control";
         private const string NoCache = "no-cache";
         private const string SessionCookieName = "Emuses.Session";
         private const string LoginPage = "/Account/Login";
@@ -51,8 +51,8 @@ namespace Emuses
         }
 
         private static void AddNoCacheHeader(HttpContext context)
-        {
-            context.Response.Headers[HeaderNames.CacheControl] = NoCache;
+        {            
+            context.Response.Headers[CacheControl] = NoCache;
         }
 
         private bool IsAnonymousAccessPath(string path)
