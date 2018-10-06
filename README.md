@@ -1,6 +1,6 @@
 # emuses
 
-[![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses) [![SonarCloud Scan Build Status](https://sonarcloud.io/api/badges/gate?key=Emuses)](https://sonarcloud.io/api/badges/gate?key=Emuses)
+[![Latest version](https://img.shields.io/nuget/v/emuses.svg)](https://www.nuget.org/packages?q=emuses)
   
 ## Build status
 
@@ -112,19 +112,7 @@ Startup.cs
   
 #### 2. Dashboard
   
-Startup.cs
-```csharp
-  public void ConfigureServices(IServiceCollection services)
-  {
-    ...
-    services
-      .AddMvc()
-      .AddApplicationPart(typeof(SessionController).GetTypeInfo().Assembly);
-
-    services.Configure<RazorViewEngineOptions>(options =>
-    {
-      options.FileProviders.Add(new EmbeddedFileProvider(typeof(SessionController).GetTypeInfo().Assembly));
-    });
-  }
+```
+PM> Install-Package Emuses.Dashboard
 ```
   
