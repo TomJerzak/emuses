@@ -7,36 +7,36 @@
 
 <h2>Sessions</h2>
 
-<div class="form-group row">
-    <button class="btn btn-link" disabled>Create</button>
-</div>
+    <!--<div class="form-group row">
+        <button class="btn btn-link" disabled>Create</button>
+    </div>-->
 
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>session id</th>
-        <th>version</th>
-        <th>session timeout</th>
-        <th>expiration date</th>
-        <th>action</th>
-    </tr>
+        <tr>
+            <th>session id</th>
+            <th>version</th>
+            <th>session timeout</th>
+            <th>expiration date</th>
+            <th>action</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.SessionId</td>
-            <td>@item.Version</td>
-            <td>@item.SessionTimeout</td>
-            <td>@item.ExpirationDate</td>
-            <td>
-                <!--<button class="btn btn-primary">Details</button>-->
-                <button class="btn btn-link" disabled>Edit</button>
-                <form asp-controller="Session" asp-action="Delete" asp-route-id=@item.SessionId>
-                <button type="submit" class="btn btn-link">Delete</button>
-                </form>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SessionId</td>
+                <td>@item.Version</td>
+                <td>@item.SessionTimeout</td>
+                <td>@item.ExpirationDate</td>
+                <td>
+                    <!--<button class="btn btn-primary">Details</button>-->
+                    <!--<button class="btn btn-link" disabled>Edit</button>-->
+                    <form asp-controller="Session" asp-action="Delete" asp-route-id=@item.SessionId>
+                        <button type="submit" class="btn btn-link">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
