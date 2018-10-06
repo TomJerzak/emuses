@@ -5,6 +5,8 @@ using Emuses.Storages;
 using Emuses.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,28 +19,28 @@ namespace Emuses.Example
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHostedService, SessionClearTask>();
             services.AddScoped<ISessionStorage>(storage => new FileStorage(@"C:\Temp\Emuses\"));
             // services.AddScoped<ISessionStorage>(storage => new PostgresStorage("Host=127.0.0.1;Username=emuses;Password=emuses;Database=emuses"));
 
-            services
-                .AddMvc()
-                //.AddApplicationPart(Assembly.Load(new AssemblyName("Emuses.Dashboard")));
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)            
                 .AddApplicationPart(typeof(SessionController).GetTypeInfo().Assembly);
 
             services.Configure<RazorViewEngineOptions>(options =>
@@ -47,7 +49,6 @@ namespace Emuses.Example
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -56,14 +57,16 @@ namespace Emuses.Example
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
             }
 
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();            
 
             app.UseEmuses(options =>
             {
@@ -75,7 +78,7 @@ namespace Emuses.Example
                 options.Storage = new FileStorage(@"C:\Temp\Emuses\");
             });
 
-            /* app.UseEmuses(options =>
+            /*app.UseEmuses(options =>
             {
                 options.OpenSessionPage = "/Account/Login";
                 options.SessionExpiredPage = "/Account/Expired";

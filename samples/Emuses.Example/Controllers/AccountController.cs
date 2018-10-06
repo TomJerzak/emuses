@@ -24,7 +24,9 @@ namespace Emuses.Example.Controllers
             _session.Open();
             Response.Cookies.Append("Emuses.Session", _session.GetSessionId(), new CookieOptions
             {
-                HttpOnly = true
+                HttpOnly = true,
+                SameSite = SameSiteMode.Lax,
+                IsEssential = true
                 // Secure = true
             });
 

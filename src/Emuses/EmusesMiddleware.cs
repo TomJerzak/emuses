@@ -44,7 +44,10 @@ namespace Emuses
 
             context.Request.Cookies.TryGetValue(SessionCookieName, out var sessionId);
 
-            return string.IsNullOrEmpty(sessionId) ? RedirectToSignIn(context) : UpdateSession(context, sessionId);
+            if (string.IsNullOrEmpty(sessionId))
+                return RedirectToSignIn(context);
+            else
+                return UpdateSession(context, sessionId);
         }
 
         private static void AddNoCacheHeader(HttpContext context)
