@@ -10,15 +10,13 @@ namespace Emuses.Tests
     {
         private readonly Mock<ISessionStorage> _storage;
 
-        public SessionTests()
-        {
-            _storage = new Mock<ISessionStorage>();
-        }
-        
+        public SessionTests() => _storage = new Mock<ISessionStorage>();
+
         [Fact]
         public void open_new_session()
         {
-            var session = new Session(30, _storage.Object).Open();
+            const int sessionTimeout = 30;
+            var session = new Session(sessionTimeout, _storage.Object).Open();
 
             session.GetSessionId().Should().NotBeNullOrEmpty();
             session.GetExpirationDate().Should().BeAfter(DateTime.Now.AddMinutes(25));
@@ -27,7 +25,8 @@ namespace Emuses.Tests
         [Fact]
         public void update_session()
         {
-            var session = new Session(10, _storage.Object).Open();
+            const int sessionTimeout = 10;
+            var session = new Session(sessionTimeout, _storage.Object).Open();
             var sessionVersion = session.GetVersion();
             _storage.Setup(x => x.GetBySessionId(session.GetSessionId())).Returns(session);
 
@@ -39,7 +38,8 @@ namespace Emuses.Tests
         [Fact]
         public void throw_exception_on_update_if_session_expired()
         {
-            var session = new Session(-1, _storage.Object).Open();
+            const int sessionTimeout = -1;
+            var session = new Session(sessionTimeout, _storage.Object).Open();
             _storage.Setup(x => x.GetBySessionId(session.GetSessionId())).Returns(session);
 
             var exception = Record.Exception(() => session.Update(session.GetSessionId()));
@@ -51,7 +51,8 @@ namespace Emuses.Tests
         [Fact]
         public void close_session()
         {
-            var session = new Session(1, _storage.Object).Open();
+            const int sessionTimeout = 1;
+            var session = new Session(sessionTimeout, _storage.Object).Open();
 
             var sessionClosed = session.Close();
 
@@ -62,7 +63,8 @@ namespace Emuses.Tests
         [Fact]
         public void is_valid_session()
         {
-            var session = new Session(1, _storage.Object).Open();
+            const int sessionTimeout = 1;
+            var session = new Session(sessionTimeout, _storage.Object).Open();
 
             session.IsValid().Should().BeTrue();
         }
