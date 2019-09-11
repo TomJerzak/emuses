@@ -10,10 +10,7 @@ namespace Emuses.Tests
     {
         private readonly Mock<ISessionStorage> _storage;
 
-        public SessionManagerTests()
-        {
-            _storage = new Mock<ISessionStorage>();
-        }
+        public SessionManagerTests() => _storage = new Mock<ISessionStorage>();
 
         [Fact]
         public void return_all_sessions()
